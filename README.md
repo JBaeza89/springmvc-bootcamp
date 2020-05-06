@@ -148,7 +148,7 @@ Is a pain manage all this by hand so we would use Gradle for this.
 
 Gradle alse let us configure our project in a standard way so can be work on in other OS or environments if they use the same version of Gradle. Also let us automatize some tasks like run tests or package our application.
 
-:tada: **Congratulations! You don't need to do anything since our base project is already configured to use Gradle and it will download it on demand and use it. The following steps are only if you want to use it in your system, but are not required.**
+:tada: **Congratulations! You don't need to do anything since our base project is already configured to use Gradle and will be downloaded on demand. The following steps are only if you want to use it in your system, but are not required.**
 
 Run the following command to install Gradle using SDKMAN!
 
