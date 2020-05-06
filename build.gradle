@@ -3,6 +3,7 @@ plugins {
     id "io.spring.dependency-management" version "${dependencyManagementVersion}"
     id "java"
     id "com.adarshr.test-logger" version "${testLoggerVersion}"
+    id 'jacoco'
 }
 
 group = "net.aspanc.bootcamp"
@@ -39,5 +40,13 @@ test {
         if (project.hasProperty('excludeE2Etests')) {
             excludeCategories 'net.aspanc.bootcamp.springmvc.categories.End2EndTest'
         }
+    }
+}
+
+tasks.test {
+    finalizedBy("jacocoTestReport")
+    doLast {
+        println("View code coverage at:")
+        println("file://$buildDir/reports/jacoco/test/html/index.html")
     }
 }

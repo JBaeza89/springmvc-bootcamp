@@ -27,6 +27,7 @@ test:
   stage: test
   script:
     - ./gradlew test -PexcludeE2Etests
+    - cat build/reports/jacoco/test/html/index.html | grep -o 'Total[^%]*%'
 
 after_script:
   - echo "End CI"
