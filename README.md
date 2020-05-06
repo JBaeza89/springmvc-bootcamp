@@ -92,7 +92,6 @@ The password for root user is **root** (the one we set when configured our conta
 
 Create the following databases:
 * **app** (this is the main database for the running application)
-* **test** (this would be used when you would launch automatic tests to your application)
 
 :warning: **Using root user to connect your application with the database is a bad practice and not recommended for production environments, but for our bootcamp we don't need to use another one.**
 

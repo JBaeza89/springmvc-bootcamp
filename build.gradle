@@ -34,4 +34,9 @@ dependencies {
 
 test {
     useJUnitPlatform()
+    useJUnit {
+        if (project.hasProperty('excludeE2Etests')) {
+            excludeCategories 'net.aspanc.bootcamp.springmvc.categories.End2EndTest'
+        }
+    }
 }
