@@ -11,6 +11,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
+@Getter @Setter
 @Table(name = "Games")
 public class Game {
 
@@ -20,16 +21,10 @@ public class Game {
     private Long id;
 
     @NotNull
-    @Column
-    @Getter @Setter
     private String title;
 
-    @Column
-    @Getter @Setter
     private String description;
 
-    @Column
-    @Getter @Setter
     private String steamId;
 
     public Game(){
