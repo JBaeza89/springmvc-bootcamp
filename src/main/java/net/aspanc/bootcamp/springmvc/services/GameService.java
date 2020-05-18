@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class GameService {
 
@@ -14,6 +13,7 @@ public class GameService {
     private GameDao gameDao;
 
     public List<Game> findAll() {
+
         return gameDao.findAll();
     }
 
@@ -24,18 +24,11 @@ public class GameService {
         return gameDao.findById(id);
     }
 
-    private boolean containsInGameTitle(String title, String filter) {
-        return title.toLowerCase().contains(filter.toLowerCase());
-    }
-
     public List<Game> findByQuery(String filter) {
         if (filter == null) {
             throw new IllegalArgumentException("filter cannot be null");
         }
-        return gameDao.findAll()
-                .stream()
-                .filter(game -> containsInGameTitle(game.getTitle(), filter))
-                .collect(Collectors.toList());
+        return gameDao.findAllByQuery(filter);
     }
 
     public void remove(Long id) {
