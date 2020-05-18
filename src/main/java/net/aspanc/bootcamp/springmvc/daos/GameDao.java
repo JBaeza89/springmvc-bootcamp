@@ -9,7 +9,5 @@ import java.util.List;
 
 public interface GameDao extends JpaRepository<Game, Long> {
 
-    @Query(value = "SELECT id, description, steam_id, title FROM games WHERE title LIKE '%:filter%'",
-    nativeQuery = true)
-    public List<Game> findAllByQuery(@Param("filter") String filter);
+    public List<Game> findByTitleContaining(final String filter);
 }
