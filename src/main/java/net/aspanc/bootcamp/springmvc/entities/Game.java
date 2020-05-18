@@ -35,6 +35,4 @@ public class Game {
         this.description = description;
         this.steamId = steamId;
     }
-
-
 }
