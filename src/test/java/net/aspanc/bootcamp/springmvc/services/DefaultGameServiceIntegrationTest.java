@@ -15,57 +15,72 @@ public class DefaultGameServiceIntegrationTest {
     @Autowired
     private GameService gameService;
 
-    @Autowired
-    private GameDao gameDao;
-
     private Game game1;
 
     private Game game2;
 
     @Before
     public void setUp() {
-        game1 = gameDao.save(new Game("Fifa 20", "futbol", "f2020"));
-        game2 = gameDao.save(new Game("NBA 2k20", "basket", "2k20"));
+        game1 = gameService.save(new Game("Fifa 20", "futbol", "f2020"));
+        game2 = gameService.save(new Game("NBA 2k20", "basket", "2k20"));
     }
 
     @After
     public void setDown() {
-        gameDao.deleteAll();
+        gameService.removeAll();
     }
 
     @Test
     public void create() {
-        Game game = gameService.save(new Game("Witcher 3", "Epic fantasy", "GR77"));
-        Assert.assertTrue("Optional is Empty", gameDao.findById(game.getId()).isPresent());
-        Assert.assertEquals("The game list haven't include the saved game", 3, gameDao.findAll().size());
+        final Game game = gameService.save(new Game("Witcher 3", "Epic fantasy", "GR77"));
+        Assert.assertTrue("Optional is Empty", gameService.findOne(game.getId()).isPresent());
+        Assert.assertEquals("The game list haven't include the saved game", 3, gameService.findAll().size());
     }
 
     @Test
-    public void retrieve() {
+    public void retrieveByID() {
         gameService.findOne(game1.getId())
-                .ifPresent(game -> {
+                .ifPresentOrElse(game -> {
                     Assert.assertEquals("Title isn't equal", game1.getTitle(), game.getTitle());
                     Assert.assertEquals("Description isn't equal", game1.getDescription(), game.getDescription());
+                }, () -> {
+                    Assert.fail();
                 });
-        Assert.assertEquals("List size doesn't match",2, gameService.findAll().size());
+    }
+
+    @Test
+    public void retrieveByTitle() {
         Assert.assertEquals("Filter list size doesn't match",1, gameService.findByQuery("Fifa").size());
     }
 
     @Test
+    public void retrieveAll() {
+        Assert.assertEquals("List size doesn't match",2, gameService.findAll().size());
+    }
+
+    @Test
     public void update() {
+        gameService.findOne(game2.getId())
+                .ifPresentOrElse(game -> {
+                    Assert.assertEquals("Changes are not in DataBase", "basket", game.getDescription());
+                }, () -> {
+                    Assert.fail();
+                });
         game2.setDescription("Basket MVP");
         gameService.save(game2);
-        gameDao.findById(game2.getId()).ifPresent(game -> {
+        gameService.findOne(game2.getId())
+                .ifPresentOrElse(game -> {
             Assert.assertEquals("Changes are not in DataBase", "Basket MVP", game.getDescription());
-        });
-        Assert.assertEquals(2, gameDao.findAll().size());
+        }, () -> {
+                    Assert.fail();
+                });
+        Assert.assertEquals(2, gameService.findAll().size());
     }
 
     @Test
     public void remove() {
-        Assert.assertEquals("List size doesn't match", 2, gameDao.findAll().size());
+        Assert.assertTrue("Game with that Id not found", gameService.existById(game1.getId()));
         gameService.remove(game1.getId());
-        Assert.assertEquals("List size doesn't match", 1, gameDao.findAll().size());
-        Assert.assertFalse("Game1 still present", gameDao.findById(game1.getId()).isPresent());
+        Assert.assertFalse("Game with that ID still in DataBase", gameService.existById(game1.getId()));
     }
 }

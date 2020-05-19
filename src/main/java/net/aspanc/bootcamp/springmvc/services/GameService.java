@@ -7,14 +7,20 @@ import java.util.Optional;
 
 public interface GameService {
 
-    public List<Game> findAll();
+    List<Game> findAll();
 
-    public Optional<Game> findOne(final Long id);
+    Optional<Game> findOne(final Long id);
 
-    public List<Game> findByQuery(final String filter);
+    List<Game> findByQuery(final String filter);
 
-    public void remove(final Long id);
+    void remove(final Long id);
 
-    public Game save(final Game game);
+    void removeAll();
+
+    Game save(final Game game);
+
+    boolean existById(final Long id);
+
+
 
 }

@@ -2,6 +2,7 @@ package net.aspanc.bootcamp.springmvc.services.impl;
 
 import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NonNull;
 import net.aspanc.bootcamp.springmvc.daos.GameDao;
 import net.aspanc.bootcamp.springmvc.entities.Game;
 import net.aspanc.bootcamp.springmvc.services.GameService;
@@ -27,35 +28,33 @@ public class DefaultGameService implements GameService {
     }
 
     @Override
-    public Optional<Game> findOne(final Long id) {
-        if (id == null) {
-            throw new IllegalArgumentException("id cannot be null");
-        }
+    public Optional<Game> findOne(@NonNull Long id) {
         return getGameDao().findById(id);
     }
 
     @Override
-    public List<Game> findByQuery(final String filter) {
-        if (filter == null) {
-            throw new IllegalArgumentException("filter cannot be null");
-        }
+    public List<Game> findByQuery(@NonNull final String filter) {
         return getGameDao().findByTitleContaining(filter);
     }
 
     @Override
-    public void remove(final Long id) {
-        if (id == null) {
-            throw new IllegalArgumentException("id cannot be null");
-        }
+    public void remove(@NonNull final Long id) {
         getGameDao().deleteById(id);
     }
 
     @Override
-    public Game save(final Game game) {
-        if (game == null) {
-            throw new IllegalArgumentException("game cannot be null");
-        }
+    public void removeAll() {
+        getGameDao().deleteAll();
+    }
+
+    @Override
+    public Game save(@NonNull final Game game) {
         return getGameDao().save(game);
+    }
+
+    @Override
+    public boolean existById(final Long id) {
+        return getGameDao().existsById(id);
     }
 
 }
