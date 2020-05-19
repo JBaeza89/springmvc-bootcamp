@@ -9,12 +9,12 @@ public interface GameService {
 
     public List<Game> findAll();
 
-    public Optional<Game> findOne(Long id);
+    public Optional<Game> findOne(final Long id);
 
-    public List<Game> findByQuery(String filter);
+    public List<Game> findByQuery(final String filter);
 
-    public void remove(Long id);
+    public void remove(final Long id);
 
-    public Game save(Game game);
+    public Game save(final Game game);
 
 }

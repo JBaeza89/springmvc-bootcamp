@@ -27,7 +27,7 @@ public class DefaultGameService implements GameService {
     }
 
     @Override
-    public Optional<Game> findOne(Long id) {
+    public Optional<Game> findOne(final Long id) {
         if (id == null) {
             throw new IllegalArgumentException("id cannot be null");
         }
@@ -35,7 +35,7 @@ public class DefaultGameService implements GameService {
     }
 
     @Override
-    public List<Game> findByQuery(String filter) {
+    public List<Game> findByQuery(final String filter) {
         if (filter == null) {
             throw new IllegalArgumentException("filter cannot be null");
         }
@@ -43,7 +43,7 @@ public class DefaultGameService implements GameService {
     }
 
     @Override
-    public void remove(Long id) {
+    public void remove(final Long id) {
         if (id == null) {
             throw new IllegalArgumentException("id cannot be null");
         }
@@ -51,7 +51,7 @@ public class DefaultGameService implements GameService {
     }
 
     @Override
-    public Game save(Game game) {
+    public Game save(final Game game) {
         if (game == null) {
             throw new IllegalArgumentException("game cannot be null");
         }
