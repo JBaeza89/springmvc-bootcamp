@@ -1,7 +1,9 @@
 package net.aspanc.bootcamp.springmvc.entities;
 
+import lombok.Data;
 import lombok.Setter;
 import lombok.Getter;
+import lombok.experimental.Accessors;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,7 +13,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Getter @Setter
+@Data
+@Accessors(chain = true)
 @Table(name = "Games")
 public class Game {
 
