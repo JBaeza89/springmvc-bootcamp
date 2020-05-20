@@ -8,7 +8,7 @@ public class ConverterGameEntityIntoGameData implements Converter<Game, GameData
 
 
     @Override
-    public GameData convert(Game game) {
+    public GameData convert(final Game game) {
         return new GameData()
                 .setId(game.getId())
                 .setDescription(game.getDescription())

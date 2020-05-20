@@ -6,7 +6,7 @@ import org.springframework.core.convert.converter.Converter;
 
 public class ConverterGameDataIntoGameEntity implements Converter<GameData, Game> {
     @Override
-    public Game convert(GameData gameData) {
+    public Game convert(final GameData gameData) {
         return new Game()
                 .setId(gameData.getId())
                 .setDescription(gameData.getDescription())
