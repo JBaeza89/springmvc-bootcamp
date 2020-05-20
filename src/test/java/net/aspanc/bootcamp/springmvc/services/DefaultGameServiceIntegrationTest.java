@@ -9,6 +9,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class DefaultGameServiceIntegrationTest {
@@ -16,9 +17,16 @@ public class DefaultGameServiceIntegrationTest {
     @Autowired
     private GameService gameService;
 
-    private final Game GAME1 = new Game("Fifa 20", "futbol", "f2020");
+    private final String TITLE1 = "Fifa 20";
+    private final String DESCRIPTION1 = "futbol";
+    private final String STEAM_ID1 = "f2020";
+    private final String TITLE2 = "NBA 2k20";
+    private final String DESCRIPTION2 = "basket";
+    private final String STEAM_ID2 = "2k20";
 
-    private final Game GAME2 = new Game("NBA 2k20", "basket", "2k20");
+    private final Game GAME1 = new Game(TITLE1, DESCRIPTION1, STEAM_ID1);
+
+    private final Game GAME2 = new Game(TITLE2, DESCRIPTION2, STEAM_ID2);
 
 
     @Before
@@ -57,8 +65,9 @@ public class DefaultGameServiceIntegrationTest {
     @Test
     public void retrieveByTitle() {
         final String FILTER = "Fifa";
-        gameService.findByQuery(FILTER)
-                .forEach(game -> Assert.assertTrue("Title doesn't contains filter", game.getTitle().contains(FILTER)));
+        List<Game> filterList = gameService.findByQuery(FILTER);
+        filterList.forEach(game -> Assert.assertTrue("Title doesn't contains filter", game.getTitle().contains(FILTER)));
+        Assert.assertEquals(1, filterList.size());
     }
 
     @Test
@@ -68,12 +77,13 @@ public class DefaultGameServiceIntegrationTest {
 
     @Test
     public void update() {
-        Assert.assertEquals("Description doesn't march", "basket", GAME2.getDescription());
-        GAME2.setDescription("Basket MVP");
+        final String NEWDESCRIPTION = "Basket MVP";
+        Assert.assertEquals("Description doesn't match", DESCRIPTION2, GAME2.getDescription());
+        GAME2.setDescription(NEWDESCRIPTION);
         gameService.save(GAME2);
         gameService.findOne(GAME2.getId())
                 .ifPresentOrElse(game -> {
-            Assert.assertEquals("Changes are not in DataBase", "Basket MVP", game.getDescription());
+            Assert.assertEquals("Changes are not in DataBase", NEWDESCRIPTION, game.getDescription());
         }, () -> {
                     Assert.fail();
                 });
