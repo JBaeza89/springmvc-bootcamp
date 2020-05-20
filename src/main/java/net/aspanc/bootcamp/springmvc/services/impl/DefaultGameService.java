@@ -6,16 +6,15 @@ import lombok.NonNull;
 import net.aspanc.bootcamp.springmvc.daos.GameDao;
 import net.aspanc.bootcamp.springmvc.entities.Game;
 import net.aspanc.bootcamp.springmvc.services.GameService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Getter(AccessLevel.PROTECTED)
 @Service("defaultGameService")
 public class DefaultGameService implements GameService {
 
-    @Getter(AccessLevel.PROTECTED)
     private final GameDao gameDao;
 
     public DefaultGameService(GameDao gameDao) {
