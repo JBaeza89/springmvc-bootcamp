@@ -2,6 +2,8 @@ package net.aspanc.bootcamp.springmvc.entities;
 
 import lombok.Setter;
 import lombok.Getter;
+import lombok.experimental.Accessors;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

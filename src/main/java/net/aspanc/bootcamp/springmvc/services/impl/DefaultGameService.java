@@ -12,10 +12,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+@Getter(AccessLevel.PROTECTED)
 @Service("defaultGameService")
 public class DefaultGameService implements GameService {
 
-    @Getter(AccessLevel.PROTECTED)
     private final GameDao gameDao;
 
     public DefaultGameService(GameDao gameDao) {
