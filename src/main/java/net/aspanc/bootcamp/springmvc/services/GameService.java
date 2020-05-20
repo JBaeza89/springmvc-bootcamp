@@ -1,47 +1,26 @@
 package net.aspanc.bootcamp.springmvc.services;
 
-import net.aspanc.bootcamp.springmvc.daos.GameDao;
 import net.aspanc.bootcamp.springmvc.entities.Game;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.Optional;
 
-public class GameService {
+public interface GameService {
 
-    @Autowired
-    private GameDao gameDao;
+    List<Game> findAll();
 
-    public List<Game> findAll() {
+    Optional<Game> findOne(final Long id);
 
-        return gameDao.findAll();
-    }
+    List<Game> findByQuery(final String filter);
 
-    public Optional<Game> findOne(Long id) {
-        if (id == null) {
-            throw new IllegalArgumentException("id cannot be null");
-        }
-        return gameDao.findById(id);
-    }
+    void remove(final Long id);
 
-    public List<Game> findByQuery(String filter) {
-        if (filter == null) {
-            throw new IllegalArgumentException("filter cannot be null");
-        }
-        return gameDao.findAllByQuery(filter);
-    }
+    void removeAll();
 
-    public void remove(Long id) {
-        if (id == null) {
-            throw new IllegalArgumentException("id cannot be null");
-        }
-        gameDao.deleteById(id);
-    }
+    Game save(final Game game);
 
-    public void save(Game game) {
-        if (game == null) {
-            throw new IllegalArgumentException("game cannot be null");
-        }
-        gameDao.save(game);
-    }
+    boolean existById(final Long id);
+
+
+
 }
