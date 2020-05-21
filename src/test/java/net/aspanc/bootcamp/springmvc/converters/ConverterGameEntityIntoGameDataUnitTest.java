@@ -9,7 +9,7 @@ import org.junit.Test;
 
 public class ConverterGameEntityIntoGameDataUnitTest {
 
-    private final Long ID = (long)2;
+    private final Long ID = 2l;
     private final String TITLE = "Fifa 20";
     private final String DESCRIPTION = "futbol";
     private final String STEAM_ID = "f2020";
