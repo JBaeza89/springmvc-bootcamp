@@ -5,7 +5,7 @@ import net.aspanc.bootcamp.springmvc.entities.Game;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Service;
 
-@Service("converterGGameDataIntoGameEntity ")
+@Service("converterGameDataIntoGameEntity ")
 public class ConverterGameDataIntoGameEntity implements Converter<GameData, Game> {
     @Override
     public Game convert(final GameData gameData) {
