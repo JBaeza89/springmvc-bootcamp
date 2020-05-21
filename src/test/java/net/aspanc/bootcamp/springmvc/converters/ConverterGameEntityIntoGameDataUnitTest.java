@@ -23,7 +23,7 @@ public class ConverterGameEntityIntoGameDataUnitTest {
 
     @Test
     public void convertGameEntityIntoGameData() {
-        GameData convertedGame = converter.convert(game);
+        final GameData convertedGame = converter.convert(game);
         Assert.assertEquals("Id isn't equal", ID, convertedGame.getId());
         Assert.assertEquals("Title isn't equal", TITLE, convertedGame.getTitle());
         Assert.assertEquals("Description isn't equal", DESCRIPTION, convertedGame.getDescription());
