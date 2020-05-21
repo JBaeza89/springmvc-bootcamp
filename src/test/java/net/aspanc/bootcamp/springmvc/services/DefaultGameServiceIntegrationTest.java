@@ -4,6 +4,7 @@ import net.aspanc.bootcamp.springmvc.entities.Game;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -15,6 +16,7 @@ import java.util.List;
 public class DefaultGameServiceIntegrationTest {
 
     @Autowired
+    @Qualifier("defaultGameService")
     private GameService gameService;
 
     private final String TITLE1 = "Fifa 20";
