@@ -9,17 +9,17 @@ public interface GameService {
 
     List<Game> findAll();
 
-    Optional<Game> findOne(final Long id);
+    Optional<Game> findOne(Long id);
 
-    List<Game> findByQuery(final String filter);
+    List<Game> findByQuery(String filter);
 
-    void remove(final Long id);
+    void remove(Long id);
 
     void removeAll();
 
-    Game save(final Game game);
+    Game save(Game game);
 
-    boolean existById(final Long id);
+    boolean existById(Long id);
 
 
 

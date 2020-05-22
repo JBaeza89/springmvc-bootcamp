@@ -27,7 +27,7 @@ public class DefaultGameService implements GameService {
     }
 
     @Override
-    public Optional<Game> findOne(@NonNull Long id) {
+    public Optional<Game> findOne(@NonNull final Long id) {
         return getGameDao().findById(id);
     }
 

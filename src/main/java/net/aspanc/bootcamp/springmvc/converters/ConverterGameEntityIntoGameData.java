@@ -3,9 +3,10 @@ package net.aspanc.bootcamp.springmvc.converters;
 import net.aspanc.bootcamp.springmvc.data.GameData;
 import net.aspanc.bootcamp.springmvc.entities.Game;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Component;
 
+@Component("converterGameEntityIntoGameData")
 public class ConverterGameEntityIntoGameData implements Converter<Game, GameData> {
-
 
     @Override
     public GameData convert(final Game game) {
