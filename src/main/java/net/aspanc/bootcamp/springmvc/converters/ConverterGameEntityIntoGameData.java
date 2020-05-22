@@ -3,9 +3,9 @@ package net.aspanc.bootcamp.springmvc.converters;
 import net.aspanc.bootcamp.springmvc.data.GameData;
 import net.aspanc.bootcamp.springmvc.entities.Game;
 import org.springframework.core.convert.converter.Converter;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-@Service("converterGameEntityIntoGameData")
+@Component("converterGameEntityIntoGameData")
 public class ConverterGameEntityIntoGameData implements Converter<Game, GameData> {
 
     @Override

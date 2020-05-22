@@ -1,5 +1,6 @@
 package net.aspanc.bootcamp.springmvc.services;
 
+import net.aspanc.bootcamp.springmvc.constants.GameConstants;
 import net.aspanc.bootcamp.springmvc.entities.Game;
 import org.junit.*;
 import org.junit.runner.RunWith;
@@ -19,16 +20,10 @@ public class DefaultGameServiceIntegrationTest {
     @Qualifier("defaultGameService")
     private GameService gameService;
 
-    private final String TITLE1 = "Fifa 20";
-    private final String DESCRIPTION1 = "futbol";
-    private final String STEAM_ID1 = "f2020";
-    private final String TITLE2 = "NBA 2k20";
-    private final String DESCRIPTION2 = "basket";
-    private final String STEAM_ID2 = "2k20";
 
-    private final Game GAME1 = new Game(TITLE1, DESCRIPTION1, STEAM_ID1);
+    private final Game GAME1 = new Game(GameConstants.TITLE1, GameConstants.DESCRIPTION1, GameConstants.STEAM_ID1);
 
-    private final Game GAME2 = new Game(TITLE2, DESCRIPTION2, STEAM_ID2);
+    private final Game GAME2 = new Game(GameConstants.TITLE2, GameConstants.DESCRIPTION2, GameConstants.STEAM_ID2);
 
 
     @Before
@@ -66,9 +61,8 @@ public class DefaultGameServiceIntegrationTest {
 
     @Test
     public void retrieveByTitle() {
-        final String FILTER = "Fifa";
-        List<Game> filterList = gameService.findByQuery(FILTER);
-        filterList.forEach(game -> Assert.assertTrue("Title doesn't contains filter", game.getTitle().contains(FILTER)));
+        List<Game> filterList = gameService.findByQuery(GameConstants.TEST_FILTER);
+        filterList.forEach(game -> Assert.assertTrue("Title doesn't contains filter", game.getTitle().contains(GameConstants.TEST_FILTER)));
         Assert.assertEquals(1, filterList.size());
     }
 
@@ -80,7 +74,7 @@ public class DefaultGameServiceIntegrationTest {
     @Test
     public void update() {
         final String NEWDESCRIPTION = "Basket MVP";
-        Assert.assertEquals("Description doesn't match", DESCRIPTION2, GAME2.getDescription());
+        Assert.assertEquals("Description doesn't match", GameConstants.DESCRIPTION2, GAME2.getDescription());
         GAME2.setDescription(NEWDESCRIPTION);
         gameService.save(GAME2);
         gameService.findOne(GAME2.getId())
