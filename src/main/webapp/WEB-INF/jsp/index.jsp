@@ -15,7 +15,7 @@
     </tr>
     <c:forEach var = "game"
                items = "${gameList}">
-        <c:url value="/game/${game.id}" var="gameURL"></c:url>
+        <c:url value="/game/${game.id}" var="gameURL"/>
         <tr>
             <td><a href="${gameURL}">${game.id}</a></td>
             <td><a href="${gameURL}">${game.title}</a></td>

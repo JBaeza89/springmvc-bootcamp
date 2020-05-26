@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,6 +11,6 @@
     <p>Titulo: ${game.title}</p>
     <p>Descripcion: ${game.description}</p>
     <p>Steam_ID: ${game.steamId}</p>
-    <a href="/">Volver al inicio</a>
+    <a href="<c:url value='/'/>">Volver al inicio</a>
 </body>
 </html>
