@@ -37,4 +37,15 @@ public class GameController {
             return "error";
         }
     }
+
+    @RequestMapping(value = "/game/delete/{gameId}", method = RequestMethod.GET)
+    public String deleteGameById(@PathVariable Long gameId, Model model) {
+        try {
+            getGameFacade().remove(gameId);
+            return showIndex(model);
+        } catch (RuntimeException ex) {
+            model.addAttribute("messageError", "No se ha podido borrar ningún juego con esa Id");
+            return "error";
+        }
+    }
 }

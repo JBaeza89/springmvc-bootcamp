@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Juegos</title>
+    <script src="/js/index.js"></script>
 </head>
 <body>
 <h1>Listado de Juegos</h1>
@@ -19,8 +20,10 @@
         <tr>
             <td><a href="${gameURL}">${game.id}</a></td>
             <td><a href="${gameURL}">${game.title}</a></td>
+            <td><button onclick="deleteById(${game.id}, '${game.title}')">Eliminar</button></td>
         </tr>
     </c:forEach>
 </table>
+
 </body>
 </html>
