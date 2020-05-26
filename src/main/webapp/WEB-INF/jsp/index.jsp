@@ -15,9 +15,10 @@
     </tr>
     <c:forEach var = "game"
                items = "${gameList}">
+        <c:url value="/game/${game.id}" var="gameURL"></c:url>
         <tr>
-            <td><a href="/game/${game.id}">${game.id}</a></td>
-            <td><a href="/game/${game.id}">${game.title}</a></td>
+            <td><a href="${gameURL}">${game.id}</a></td>
+            <td><a href="${gameURL}">${game.title}</a></td>
         </tr>
     </c:forEach>
 </table>

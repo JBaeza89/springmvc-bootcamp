@@ -1,5 +1,7 @@
 package net.aspanc.bootcamp.springmvc.controller;
 
+import lombok.AccessLevel;
+import lombok.Getter;
 import net.aspanc.bootcamp.springmvc.facade.GameFacade;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.NoSuchElementException;
 
+@Getter(AccessLevel.PROTECTED)
 @Controller
 public class GameController {
 
@@ -16,10 +19,6 @@ public class GameController {
 
     public GameController(GameFacade gameFacade) {
         this.gameFacade = gameFacade;
-    }
-
-    public GameFacade getGameFacade() {
-        return gameFacade;
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
