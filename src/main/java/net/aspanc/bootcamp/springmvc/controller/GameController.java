@@ -36,6 +36,5 @@ public class GameController {
             model.addAttribute("messageError", "No se ha encontrado juego con esa Id");
             return "error";
         }
-
     }
 }

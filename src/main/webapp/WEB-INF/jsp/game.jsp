@@ -11,6 +11,7 @@
     <p>Titulo: ${game.title}</p>
     <p>Descripcion: ${game.description}</p>
     <p>Steam_ID: ${game.steamId}</p>
-    <a href="<c:url value='/'/>">Volver al inicio</a>
+    <c:url value="/" var="indexURL"/>
+    <a href="${indexURL}">Volver al inicio</a>
 </body>
 </html>

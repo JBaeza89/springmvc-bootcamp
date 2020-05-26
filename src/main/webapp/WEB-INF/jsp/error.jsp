@@ -7,8 +7,10 @@
     <title>Error</title>
 </head>
 <body>
-    <a href="<c:url value='/'/>">Volver al inicio</a>
+    <c:url value="/" var="indexURL"/>
+    <a href="${indexURL}">Volver al inicio</a>
     <br><br>
-    <h1>${messageError}</h1>
+    <h1>Problemas con la URL introducida</h1>
+    <h3>${messageError}</h3>
 </body>
 </html>
