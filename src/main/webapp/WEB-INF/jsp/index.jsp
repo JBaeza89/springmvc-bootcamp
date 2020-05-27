@@ -17,13 +17,16 @@
     <c:forEach var = "game"
                items = "${gameList}">
         <c:url value="/game/${game.id}" var="gameURL"/>
+        <c:url value="/game/delete/${game.id}" var="deleteURL"/>
         <tr>
             <td><a href="${gameURL}">${game.id}</a></td>
             <td><a href="${gameURL}">${game.title}</a></td>
-            <td><button onclick="deleteById(${game.id}, '${game.title}')">Eliminar</button></td>
+            <td><button onclick="deleteById('${deleteURL}', '${game.title}')">Eliminar</button></td>
         </tr>
     </c:forEach>
 </table>
-
+<c:if test="${deleteMessage != null}">
+<script>alert("${deleteMessage}")</script>
+</c:if>
 </body>
 </html>
