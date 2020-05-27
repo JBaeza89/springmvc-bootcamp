@@ -5,10 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Juegos</title>
+    <link rel="stylesheet" href="/css/style.css">
     <script src="/js/index.js"></script>
 </head>
 <body>
 <h1>Listado de Juegos</h1>
+<c:if test="${deleteMessage != null}">
+    <span class="bg-yellow">${deleteMessage}</span>
+</c:if>
 <table>
     <tr>
         <th>ID</th>
@@ -25,8 +29,6 @@
         </tr>
     </c:forEach>
 </table>
-<c:if test="${deleteMessage != null}">
-<script>alert("${deleteMessage}")</script>
-</c:if>
+
 </body>
 </html>

@@ -50,7 +50,7 @@ public class GameController {
             getGameFacade().remove(gameId);
             attributes.addFlashAttribute("deleteMessage", "Juego borrado correctamente");
         } catch (EmptyResultDataAccessException ex) {
-            attributes.addFlashAttribute("deleteMesagge", "No se ha podido borrar el juego solicitado");
+            attributes.addFlashAttribute("deleteMessage", "No se ha podido borrar el juego solicitado");
         }
         return "redirect:/";
     }
