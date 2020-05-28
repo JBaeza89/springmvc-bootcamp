@@ -15,7 +15,7 @@
 </c:if>
 <c:url value="/game" var="queryURL"/>
 <form action="${queryURL}" method="get">
-<input type="text" name="q" placeholder="Buscar juegos">
+<input type="text" name="q" value="${q}" placeholder="Buscar juegos">
 <button type="submit">Buscar</button>
 </form>
 <table>
