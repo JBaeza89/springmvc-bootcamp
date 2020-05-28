@@ -28,8 +28,8 @@ public class GameController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String showIndex(Model model) {
-
         model.addAttribute("gameList", getGameFacade().findAll());
+        model.addAttribute("filter", "Search");
         return "index";
     }
 
@@ -53,5 +53,12 @@ public class GameController {
             attributes.addFlashAttribute("deleteMessage", "No se ha podido borrar el juego solicitado");
         }
         return "redirect:/";
+    }
+
+    @RequestMapping(value = "/game", method = RequestMethod.GET)
+    public String showGameListByQuery(HttpServletRequest request, Model model) {
+        model.addAttribute("gameList",
+                getGameFacade().findByQuery(request.getParameter("q")));
+        return "index";
     }
 }

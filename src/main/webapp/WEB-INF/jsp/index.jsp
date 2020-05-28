@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,6 +14,10 @@
 <c:if test="${deleteMessage ne null}">
     <span class="bg-yellow">${deleteMessage}</span>
 </c:if>
+<form:form action="/game" method="get">
+<input type="text" name="q" placeholder="Buscar juegos">
+<button type="submit">Buscar</button>
+</form:form>
 <table>
     <tr>
         <th>ID</th>
