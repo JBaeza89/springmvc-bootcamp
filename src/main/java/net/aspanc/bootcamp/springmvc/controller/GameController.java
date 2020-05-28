@@ -2,15 +2,13 @@ package net.aspanc.bootcamp.springmvc.controller;
 
 import lombok.AccessLevel;
 import lombok.Getter;
+import net.aspanc.bootcamp.springmvc.data.GameData;
 import net.aspanc.bootcamp.springmvc.facade.GameFacade;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -61,5 +59,17 @@ public class GameController {
                 getGameFacade().findByQuery(query));
         model.addAttribute("q", query);
         return "index";
+    }
+
+    @RequestMapping(value = "/game/new", method = RequestMethod.GET)
+    public String showCreateGamePage(Model model) {
+        model.addAttribute("game", new GameData());
+        return "newgame";
+    }
+
+    @RequestMapping(value = "/game/new", method = RequestMethod.POST)
+    public String createNewGame(@ModelAttribute("game") GameData game, Model model) {
+        Long id = gameFacade.save(game).getId();
+        return "redirect:/game/" + id;
     }
 }

@@ -13,6 +13,9 @@
 <c:if test="${deleteMessage ne null}">
     <span class="bg-yellow">${deleteMessage}</span>
 </c:if>
+<br>
+<c:url value="/game/new" var="newGameURL"/>
+<a href="${newGameURL}">Nuevo juego</a>
 <c:url value="/game" var="queryURL"/>
 <form action="${queryURL}" method="get">
 <input type="text" name="q" value="${q}" placeholder="Buscar juegos">
