@@ -13,6 +13,11 @@
 <c:if test="${deleteMessage ne null}">
     <span class="bg-yellow">${deleteMessage}</span>
 </c:if>
+<c:url value="/game" var="queryURL"/>
+<form action="${queryURL}" method="get">
+<input type="text" name="q" value="${q}" placeholder="Buscar juegos">
+<button type="submit">Buscar</button>
+</form>
 <table>
     <tr>
         <th>ID</th>

@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -28,7 +29,6 @@ public class GameController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String showIndex(Model model) {
-
         model.addAttribute("gameList", getGameFacade().findAll());
         return "index";
     }
@@ -53,5 +53,13 @@ public class GameController {
             attributes.addFlashAttribute("deleteMessage", "No se ha podido borrar el juego solicitado");
         }
         return "redirect:/";
+    }
+
+    @RequestMapping(value = "/game", method = RequestMethod.GET)
+    public String showGameListByQuery(@RequestParam(value = "q") String query, Model model) {
+        model.addAttribute("gameList",
+                getGameFacade().findByQuery(query));
+        model.addAttribute("q", query);
+        return "index";
     }
 }
