@@ -30,10 +30,12 @@
                items = "${gameList}">
         <c:url value="/game/${game.id}" var="gameURL"/>
         <c:url value="/game/delete/${game.id}" var="deleteURL"/>
+        <c:url value="/game/edit/${game.id}" var="editURL"/>
         <tr>
             <td><a href="${gameURL}">${game.id}</a></td>
             <td><a href="${gameURL}">${game.title}</a></td>
             <td><button onclick="deleteById('${deleteURL}', '${game.title}')">Eliminar</button></td>
+            <td><a href="${editURL}">Editar</a></td>
         </tr>
     </c:forEach>
 </table>
