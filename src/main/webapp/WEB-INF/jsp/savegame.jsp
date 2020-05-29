@@ -13,7 +13,8 @@
 <h1>${title}</h1>
 <c:url value="${not empty game.id ? '/game/edit/'.concat(game.id) : '/game/new'}" var="formURL"/>
 <form:form action="${formURL}" method="post" modelAttribute="game">
-    Titulo: <form:input path="title"/><br>
+    Titulo: <form:input path="title"/>
+    <form:errors path="title" class="errorMessage"/><br>
     Steam_Id: <form:input path="steamId"/><br>
     Descripcion: <form:textarea path="description"/><br>
     <button type="submit">Enviar</button>

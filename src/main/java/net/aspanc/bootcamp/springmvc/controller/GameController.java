@@ -4,15 +4,20 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import net.aspanc.bootcamp.springmvc.data.GameData;
 import net.aspanc.bootcamp.springmvc.facade.GameFacade;
+import net.aspanc.bootcamp.springmvc.validator.GameDataValidator;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.NoSuchElementException;
 
 @Getter(AccessLevel.PROTECTED)
@@ -23,6 +28,11 @@ public class GameController {
 
     public GameController(GameFacade gameFacade) {
         this.gameFacade = gameFacade;
+    }
+
+    @InitBinder
+    protected void initBinder(WebDataBinder binder) {
+        binder.setValidator(new GameDataValidator(getGameFacade()));
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
@@ -69,7 +79,13 @@ public class GameController {
     }
 
     @RequestMapping(value = "/game/new", method = RequestMethod.POST)
-    public String createNewGame(@ModelAttribute("game") GameData game) {
+    public String createNewGame(@Valid @ModelAttribute("game") GameData game,
+                                BindingResult bindingResult, Model model) {
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("title", "Agregar Juego");
+            return "savegame";
+        }
         Long id = getGameFacade().save(game).getId();
         return "redirect:/game/" + id;
     }
@@ -87,8 +103,14 @@ public class GameController {
     }
 
     @RequestMapping(value = "/game/edit/{gameId}", method = RequestMethod.POST)
-    public String updateGameById(@PathVariable Long gameId, @ModelAttribute("game") GameData game) {
-        getGameFacade().save(game.setId(gameId));
+    public String updateGameById(@PathVariable Long gameId, @Valid @ModelAttribute("game") GameData game,
+                                 BindingResult bindingResult, Model model) {
+        game.setId(gameId);
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("title", "Modificar Juego");
+            return "savegame";
+        }
+        getGameFacade().save(game);
         return "redirect:/game/" + gameId;
     }
 }
