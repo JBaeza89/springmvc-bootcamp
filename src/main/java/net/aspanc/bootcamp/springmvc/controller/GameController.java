@@ -64,7 +64,6 @@ public class GameController {
     @RequestMapping(value = "/game/new", method = RequestMethod.GET)
     public String showSaveGamePage(Model model) {
         model.addAttribute("game", new GameData());
-        model.addAttribute("formURL", "/game/new");
         model.addAttribute("title", "Agregar Juego");
         return "savegame";
     }
@@ -79,7 +78,6 @@ public class GameController {
     public String showSaveGamePage(@PathVariable Long gameId, Model model) {
         try {
             model.addAttribute("game", getGameFacade().findOne(gameId));
-            model.addAttribute("formURL", "/game/edit/" + gameId);
             model.addAttribute("title", "Modificar Juego");
             return "savegame";
         } catch (NoSuchElementException ex) {
