@@ -62,14 +62,33 @@ public class GameController {
     }
 
     @RequestMapping(value = "/game/new", method = RequestMethod.GET)
-    public String showCreateGamePage(Model model) {
+    public String showSaveGamePage(Model model) {
         model.addAttribute("game", new GameData());
-        return "newgame";
+        model.addAttribute("title", "Agregar Juego");
+        return "savegame";
     }
 
     @RequestMapping(value = "/game/new", method = RequestMethod.POST)
-    public String createNewGame(@ModelAttribute("game") GameData game, Model model) {
-        Long id = gameFacade.save(game).getId();
+    public String createNewGame(@ModelAttribute("game") GameData game) {
+        Long id = getGameFacade().save(game).getId();
         return "redirect:/game/" + id;
+    }
+
+    @RequestMapping(value = "/game/edit/{gameId}", method = RequestMethod.GET)
+    public String showSaveGamePage(@PathVariable Long gameId, Model model) {
+        try {
+            model.addAttribute("game", getGameFacade().findOne(gameId));
+            model.addAttribute("title", "Modificar Juego");
+            return "savegame";
+        } catch (NoSuchElementException ex) {
+            model.addAttribute("messageError", "No se ha encontrado juego con esa Id");
+            return "error";
+        }
+    }
+
+    @RequestMapping(value = "/game/edit/{gameId}", method = RequestMethod.POST)
+    public String updateGameById(@PathVariable Long gameId, @ModelAttribute("game") GameData game) {
+        getGameFacade().save(game.setId(gameId));
+        return "redirect:/game/" + gameId;
     }
 }
