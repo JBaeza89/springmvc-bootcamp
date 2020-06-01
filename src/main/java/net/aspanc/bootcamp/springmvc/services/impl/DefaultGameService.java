@@ -33,7 +33,7 @@ public class DefaultGameService implements GameService {
 
     @Override
     public boolean existsByTitle(@NonNull final String title) {
-        return getGameDao().existsByTitle(title);
+        return getGameDao().existsByTitleIgnoreCase(title);
     }
 
     @Override

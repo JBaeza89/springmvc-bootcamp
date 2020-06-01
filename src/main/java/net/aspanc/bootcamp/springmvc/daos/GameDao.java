@@ -10,5 +10,5 @@ public interface GameDao extends JpaRepository<Game, Long> {
 
     List<Game> findByTitleContaining(final String filter);
 
-    boolean existsByTitle(final String title);
+    boolean existsByTitleIgnoreCase(final String title);
 }
