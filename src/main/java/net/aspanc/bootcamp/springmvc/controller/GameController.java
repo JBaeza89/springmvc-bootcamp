@@ -5,6 +5,8 @@ import lombok.Getter;
 import net.aspanc.bootcamp.springmvc.data.GameData;
 import net.aspanc.bootcamp.springmvc.facade.GameFacade;
 import net.aspanc.bootcamp.springmvc.validator.GameDataValidator;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ExtendedModelMap;
@@ -28,9 +30,12 @@ public class GameController {
 
     private GameDataValidator gameDataValidator;
 
-    public GameController(GameFacade gameFacade, GameDataValidator gameDataValidator) {
+    private MessageSource messageSource;
+
+    public GameController(GameFacade gameFacade, GameDataValidator gameDataValidator, MessageSource messageSource) {
         this.gameFacade = gameFacade;
         this.gameDataValidator = gameDataValidator;
+        this.messageSource = messageSource;
     }
 
     @InitBinder
@@ -50,7 +55,9 @@ public class GameController {
             model.addAttribute("game", getGameFacade().findOne(gameId));
             return "game";
         } catch (NoSuchElementException ex) {
-            model.addAttribute("messageError", "No se ha encontrado juego con esa Id");
+            model.addAttribute("messageError",
+                    messageSource.getMessage("controller.messagerror.notfoundgame",
+                            null, LocaleContextHolder.getLocale()));
             return "error";
         }
     }
@@ -59,9 +66,13 @@ public class GameController {
     public String deleteGameById(@PathVariable Long gameId, RedirectAttributes attributes) {
         try {
             getGameFacade().remove(gameId);
-            attributes.addFlashAttribute("deleteMessage", "Juego borrado correctamente");
+            attributes.addFlashAttribute("deleteMessage",
+                    messageSource.getMessage("controller.delete.success",
+                            null, LocaleContextHolder.getLocale()));
         } catch (EmptyResultDataAccessException ex) {
-            attributes.addFlashAttribute("deleteMessage", "No se ha podido borrar el juego solicitado");
+            attributes.addFlashAttribute("deleteMessage",
+                    messageSource.getMessage("controller.delete.failed",
+                            null, LocaleContextHolder.getLocale()));
         }
         return "redirect:/";
     }
@@ -77,7 +88,9 @@ public class GameController {
     @RequestMapping(value = "/game/new", method = RequestMethod.GET)
     public String showSaveGamePage(Model model) {
         model.addAttribute("game", new GameData());
-        model.addAttribute("title", "Agregar Juego");
+        model.addAttribute("title",
+                messageSource.getMessage("controller.title.addgame",
+                        null, LocaleContextHolder.getLocale()));
         return "savegame";
     }
 
@@ -86,7 +99,9 @@ public class GameController {
                                 BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
-            model.addAttribute("title", "Agregar Juego");
+            model.addAttribute("title",
+                    messageSource.getMessage("controller.title.addgame",
+                            null, LocaleContextHolder.getLocale()));
             return "savegame";
         }
         Long id = getGameFacade().save(game).getId();
@@ -97,10 +112,14 @@ public class GameController {
     public String showSaveGamePage(@PathVariable Long gameId, Model model) {
         try {
             model.addAttribute("game", getGameFacade().findOne(gameId));
-            model.addAttribute("title", "Modificar Juego");
+            model.addAttribute("title",
+                    messageSource.getMessage("controller.title.editgame",
+                            null, LocaleContextHolder.getLocale()));
             return "savegame";
         } catch (NoSuchElementException ex) {
-            model.addAttribute("messageError", "No se ha encontrado juego con esa Id");
+            model.addAttribute("messageError",
+                    messageSource.getMessage("controller.messagerror.notfoundgame",
+                            null, LocaleContextHolder.getLocale()));
             return "error";
         }
     }
@@ -110,7 +129,9 @@ public class GameController {
                                  BindingResult bindingResult, Model model) {
         game.setId(gameId);
         if (bindingResult.hasErrors()) {
-            model.addAttribute("title", "Modificar Juego");
+            model.addAttribute("title",
+                    messageSource.getMessage("controller.title.editgame",
+                            null, LocaleContextHolder.getLocale()));
             return "savegame";
         }
         getGameFacade().save(game);
