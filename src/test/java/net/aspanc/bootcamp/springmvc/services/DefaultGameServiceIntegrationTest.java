@@ -90,4 +90,16 @@ public class DefaultGameServiceIntegrationTest {
         gameService.remove(GAME1.getId());
         Assert.assertFalse("Game with that ID still in DataBase", gameService.existById(GAME1.getId()));
     }
+
+    @Test
+    public void existByTitle() {
+        Assert.assertTrue(gameService.existsByTitle(GAME1.getTitle()));
+        Assert.assertTrue(gameService.existsByTitle(GAME1.getTitle().toLowerCase()));
+        Assert.assertTrue(gameService.existsByTitle(GAME1.getTitle().toUpperCase()));
+    }
+
+    @Test
+    public void existByTitleWrong() {
+        Assert.assertFalse(gameService.existsByTitle(GAME2.getTitle().substring(1)));
+    }
 }

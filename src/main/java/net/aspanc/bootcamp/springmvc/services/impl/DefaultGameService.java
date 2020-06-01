@@ -32,6 +32,11 @@ public class DefaultGameService implements GameService {
     }
 
     @Override
+    public boolean existsByTitle(@NonNull final String title) {
+        return getGameDao().existsByTitleIgnoreCase(title);
+    }
+
+    @Override
     public List<Game> findByQuery(@NonNull final String filter) {
         return getGameDao().findByTitleContaining(filter);
     }
