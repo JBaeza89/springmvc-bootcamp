@@ -2,21 +2,18 @@ package net.aspanc.bootcamp.springmvc.controller;
 
 import lombok.AccessLevel;
 import lombok.Getter;
+import net.aspanc.bootcamp.springmvc.constants.ErrorsCodes;
 import net.aspanc.bootcamp.springmvc.data.GameData;
 import net.aspanc.bootcamp.springmvc.facade.GameFacade;
 import net.aspanc.bootcamp.springmvc.validator.GameDataValidator;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.NoSuchElementException;
 
@@ -83,13 +80,14 @@ public class GameController {
 
     @RequestMapping(value = "/game/new", method = RequestMethod.POST)
     public String createNewGame(@Valid @ModelAttribute("game") GameData game,
-                                BindingResult bindingResult, Model model) {
+                                BindingResult bindingResult, Model model, RedirectAttributes attributes) {
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("title", "Agregar Juego");
             return "savegame";
         }
         Long id = getGameFacade().save(game).getId();
+        attributes.addFlashAttribute("saveMessage", "Juego agregado correctamente");
         return "redirect:/game/" + id;
     }
 
@@ -107,13 +105,14 @@ public class GameController {
 
     @RequestMapping(value = "/game/edit/{gameId}", method = RequestMethod.POST)
     public String updateGameById(@PathVariable Long gameId, @Valid @ModelAttribute("game") GameData game,
-                                 BindingResult bindingResult, Model model) {
+                                 BindingResult bindingResult, Model model, RedirectAttributes attributes) {
         game.setId(gameId);
-        if (bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors() && !bindingResult.getFieldError().getCode().equals(ErrorsCodes.EXIST_GAME)) {
             model.addAttribute("title", "Modificar Juego");
             return "savegame";
         }
         getGameFacade().save(game);
+        attributes.addFlashAttribute("saveMessage", "Juego modificado correctamente");
         return "redirect:/game/" + gameId;
     }
 }

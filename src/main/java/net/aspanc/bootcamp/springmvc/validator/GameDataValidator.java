@@ -2,6 +2,7 @@ package net.aspanc.bootcamp.springmvc.validator;
 
 import lombok.AccessLevel;
 import lombok.Getter;
+import net.aspanc.bootcamp.springmvc.constants.ErrorsCodes;
 import net.aspanc.bootcamp.springmvc.data.GameData;
 import net.aspanc.bootcamp.springmvc.facade.GameFacade;
 import org.springframework.stereotype.Component;
@@ -36,9 +37,9 @@ public class GameDataValidator implements Validator {
     public void validate(Object target, Errors errors) {
         GameData game = (GameData) target;
         if (gameTitleIsNullOrEmpty(game.getTitle())) {
-            errors.rejectValue("title", "EMPTY_GAME", "EL juego no puede estar vacio");
+            errors.rejectValue("title", ErrorsCodes.EMPTY_GAME, "EL juego no puede estar vacio");
         } else if (gameTitleExist(game.getTitle())){
-            errors.rejectValue("title", "EXIST_GAME", "EL juego ya existe");
+            errors.rejectValue("title", ErrorsCodes.EXIST_GAME, "EL juego ya existe");
         }
     }
 }
