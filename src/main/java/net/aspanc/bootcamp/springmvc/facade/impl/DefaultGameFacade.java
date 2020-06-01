@@ -44,6 +44,11 @@ public class DefaultGameFacade implements GameFacade {
     }
 
     @Override
+    public boolean existsByTitle(@NonNull final String title) {
+        return getGameService().existsByTitle(title);
+    }
+
+    @Override
     public List<GameData> findByQuery(@NonNull final String filter) {
         return getGameService().findByQuery(filter)
                 .stream()

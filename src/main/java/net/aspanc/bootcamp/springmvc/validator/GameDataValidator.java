@@ -29,7 +29,7 @@ public class GameDataValidator implements Validator {
     }
 
     private boolean gameTitleExist(String title) {
-        return getGameFacade().findByQuery(title).stream().anyMatch(game -> game.getTitle().equalsIgnoreCase(title));
+        return getGameFacade().existsByTitle(title);
     }
 
     @Override

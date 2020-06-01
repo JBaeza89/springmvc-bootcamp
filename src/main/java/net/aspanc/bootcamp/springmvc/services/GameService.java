@@ -11,6 +11,8 @@ public interface GameService {
 
     Optional<Game> findOne(Long id);
 
+    boolean existsByTitle(String title);
+
     List<Game> findByQuery(String filter);
 
     void remove(Long id);

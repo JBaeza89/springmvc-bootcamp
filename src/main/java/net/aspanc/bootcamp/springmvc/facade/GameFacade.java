@@ -8,6 +8,7 @@ public interface GameFacade {
 
     List<GameData> findAll();
     GameData findOne(Long id);
+    boolean existsByTitle(String title);
     List<GameData> findByQuery(String filter);
     void remove(Long id);
     GameData save(GameData inputGame);
