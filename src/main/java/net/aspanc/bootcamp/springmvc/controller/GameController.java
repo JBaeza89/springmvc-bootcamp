@@ -26,13 +26,16 @@ public class GameController {
 
     private GameFacade gameFacade;
 
-    public GameController(GameFacade gameFacade) {
+    private GameDataValidator gameDataValidator;
+
+    public GameController(GameFacade gameFacade, GameDataValidator gameDataValidator) {
         this.gameFacade = gameFacade;
+        this.gameDataValidator = gameDataValidator;
     }
 
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
-        binder.setValidator(new GameDataValidator(getGameFacade()));
+        binder.setValidator(getGameDataValidator());
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
