@@ -10,9 +10,8 @@
 </head>
 <body>
 <h1>Listado de Juegos</h1>
-<c:if test="${deleteMessage ne null}">
-    <span class="bg-yellow">${deleteMessage}</span>
-</c:if>
+
+<%@ include file="templates/feedbackmessage.jspf"%>
 <br>
 <c:url value="/game/new" var="newGameURL"/>
 <a href="${newGameURL}">Nuevo juego</a>

@@ -45,9 +45,9 @@ public class GameController {
     public String deleteGameById(@PathVariable Long gameId, RedirectAttributes attributes) {
         try {
             getGameFacade().remove(gameId);
-            attributes.addFlashAttribute("deleteMessage", "Juego borrado correctamente");
+            attributes.addFlashAttribute("feedbackMessage", "Juego borrado correctamente");
         } catch (EmptyResultDataAccessException ex) {
-            attributes.addFlashAttribute("deleteMessage", "No se ha podido borrar el juego solicitado");
+            attributes.addFlashAttribute("feedbackMessage", "No se ha podido borrar el juego solicitado");
         }
         return "redirect:/";
     }
@@ -76,7 +76,7 @@ public class GameController {
             return "savegame";
         }
         Long id = getGameFacade().save(game).getId();
-        attributes.addFlashAttribute("saveMessage", "Juego agregado correctamente");
+        attributes.addFlashAttribute("feedbackMessage", "Juego agregado correctamente");
         return "redirect:/game/" + id;
     }
 
@@ -101,7 +101,7 @@ public class GameController {
             return "savegame";
         }
         getGameFacade().save(game);
-        attributes.addFlashAttribute("saveMessage", "Juego modificado correctamente");
+        attributes.addFlashAttribute("feedbackMessage", "Juego modificado correctamente");
         return "redirect:/game/" + gameId;
     }
 }

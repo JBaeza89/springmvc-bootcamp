@@ -9,9 +9,7 @@
 </head>
 <body>
 
-    <c:if test="${saveMessage ne null}">
-        <span class="bg-yellow">${saveMessage}</span>
-    </c:if>
+<%@ include file="templates/feedbackmessage.jspf"%>
     <p>Id: ${game.id}</p>
     <p>Titulo: ${game.title}</p>
     <p>Descripcion: ${game.description}</p>
