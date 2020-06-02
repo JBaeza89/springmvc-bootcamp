@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib uri="http://www.springframework.org/tags" prefix="s"%>
+<%@ taglib prefix="tag" tagdir="/WEB-INF/tags"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,9 +12,7 @@
 </head>
 <body>
 <h1><s:message code="index.title" /></h1>
-<c:if test="${deleteMessage ne null}">
-    <span class="bg-yellow">${deleteMessage}</span>
-</c:if>
+<tag:feedbackmessage message="${deleteMessage}"/>
 <br>
 <c:url value="/game/new" var="newGameURL"/>
 <a href="${newGameURL}"><s:message code="index.newgame" /></a>

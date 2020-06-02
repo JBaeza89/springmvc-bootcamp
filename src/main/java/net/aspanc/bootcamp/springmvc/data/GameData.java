@@ -3,12 +3,16 @@ package net.aspanc.bootcamp.springmvc.data;
 
 import lombok.Data;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 
 @Data
 public class GameData {
 
     private Long id;
-
+    @NotNull
+    @NotEmpty
     private String title;
     private String description;
     private String steamId;
