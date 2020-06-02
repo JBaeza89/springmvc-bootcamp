@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="tag" tagdir="/WEB-INF/tags"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,9 +11,8 @@
 </head>
 <body>
 <h1>Listado de Juegos</h1>
-<c:if test="${deleteMessage ne null}">
-    <span class="bg-yellow">${deleteMessage}</span>
-</c:if>
+
+<tag:feedbackmessage message="${deleteMessage}"/>
 <br>
 <c:url value="/game/new" var="newGameURL"/>
 <a href="${newGameURL}">Nuevo juego</a>
