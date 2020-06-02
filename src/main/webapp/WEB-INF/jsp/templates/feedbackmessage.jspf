@@ -1,3 +1,0 @@
-<c:if test="${not empty feedbackMessage}">
-    <span class="bg-yellow">${feedbackMessage}</span>
-</c:if>

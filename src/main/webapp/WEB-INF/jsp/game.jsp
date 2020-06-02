@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="tag" tagdir="/WEB-INF/tags"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +10,7 @@
 </head>
 <body>
 
-<%@ include file="templates/feedbackmessage.jspf"%>
+<tag:feedbackmessage message="${saveMessage}"/>
     <p>Id: ${game.id}</p>
     <p>Titulo: ${game.title}</p>
     <p>Descripcion: ${game.description}</p>
