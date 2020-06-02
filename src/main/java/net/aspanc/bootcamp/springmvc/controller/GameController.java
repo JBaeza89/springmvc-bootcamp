@@ -5,7 +5,6 @@ import lombok.Getter;
 import net.aspanc.bootcamp.springmvc.data.GameData;
 import net.aspanc.bootcamp.springmvc.facade.GameFacade;
 import org.springframework.context.MessageSource;
-import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,12 +21,8 @@ public class GameController {
 
     private GameFacade gameFacade;
 
-
-    private MessageSource messageSource;
-
-    public GameController(GameFacade gameFacade, MessageSource messageSource) {
+    public GameController(GameFacade gameFacade) {
         this.gameFacade = gameFacade;
-        this.messageSource = messageSource;
     }
 
 
@@ -43,9 +38,7 @@ public class GameController {
             model.addAttribute("game", getGameFacade().findOne(gameId));
             return "game";
         } catch (NoSuchElementException ex) {
-            model.addAttribute("messageError",
-                    getMessageSource().getMessage("controller.messagerror.notfoundgame",
-                            null, LocaleContextHolder.getLocale()));
+            model.addAttribute("messageError", "controller.messagerror.notfoundgame");
             return "error";
         }
     }
@@ -54,13 +47,9 @@ public class GameController {
     public String deleteGameById(@PathVariable Long gameId, RedirectAttributes attributes) {
         try {
             getGameFacade().remove(gameId);
-            attributes.addFlashAttribute("deleteMessage",
-                    getMessageSource().getMessage("controller.delete.success",
-                            null, LocaleContextHolder.getLocale()));
+            attributes.addFlashAttribute("deleteMessage", "controller.delete.success");
         } catch (EmptyResultDataAccessException ex) {
-            attributes.addFlashAttribute("deleteMessage",
-                    getMessageSource().getMessage("controller.delete.failed",
-                            null, LocaleContextHolder.getLocale()));
+            attributes.addFlashAttribute("deleteMessage", "controller.delete.failed");
         }
         return "redirect:/";
     }
@@ -76,9 +65,7 @@ public class GameController {
     @RequestMapping(value = "/game/new", method = RequestMethod.GET)
     public String showSaveGamePage(Model model) {
         model.addAttribute("game", new GameData());
-        model.addAttribute("title",
-                getMessageSource().getMessage("controller.title.addgame",
-                        null, LocaleContextHolder.getLocale()));
+        model.addAttribute("title", "controller.title.addgame");
         return "savegame";
     }
 
@@ -87,13 +74,11 @@ public class GameController {
                                 BindingResult bindingResult, Model model, RedirectAttributes attributes) {
 
         if (bindingResult.hasErrors()) {
-            model.addAttribute("title",
-                    messageSource.getMessage("controller.title.addgame",
-                            null, LocaleContextHolder.getLocale()));
+            model.addAttribute("title", "controller.title.addgame");
             return "savegame";
         }
         Long id = getGameFacade().save(game).getId();
-        attributes.addFlashAttribute("saveMessage", "Juego agregado correctamente");
+        attributes.addFlashAttribute("saveMessage", "controller.save.success");
         return "redirect:/game/" + id;
     }
 
@@ -101,14 +86,10 @@ public class GameController {
     public String showSaveGamePage(@PathVariable Long gameId, Model model) {
         try {
             model.addAttribute("game", getGameFacade().findOne(gameId));
-            model.addAttribute("title",
-                    getMessageSource().getMessage("controller.title.editgame",
-                            null, LocaleContextHolder.getLocale()));
+            model.addAttribute("title", "controller.title.editgame");
             return "savegame";
         } catch (NoSuchElementException ex) {
-            model.addAttribute("messageError",
-                    getMessageSource().getMessage("controller.messagerror.notfoundgame",
-                            null, LocaleContextHolder.getLocale()));
+            model.addAttribute("messageError", "controller.messagerror.notfoundgame");
             return "error";
         }
     }
@@ -118,13 +99,11 @@ public class GameController {
                                  BindingResult bindingResult, Model model, RedirectAttributes attributes) {
         game.setId(gameId);
         if (bindingResult.hasErrors()) {
-            model.addAttribute("title",
-                    getMessageSource().getMessage("controller.title.editgame",
-                            null, LocaleContextHolder.getLocale()));
+            model.addAttribute("title", "controller.title.editgame");
             return "savegame";
         }
         getGameFacade().save(game);
-        attributes.addFlashAttribute("saveMessage", "Juego modificado correctamente");
+        attributes.addFlashAttribute("saveMessage", "controller.edit.success");
         return "redirect:/game/" + gameId;
     }
 }
