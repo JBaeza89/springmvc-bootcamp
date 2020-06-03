@@ -34,7 +34,7 @@
         <tr>
             <td><a href="${gameURL}">${game.id}</a></td>
             <td><a href="${gameURL}">${game.title}</a></td>
-            <td><button onclick="deleteById('${deleteURL}', '<spring:message code="js.delete.confirm"/> ${game.title}')"><spring:message code="index.delete"/></button></td>
+            <td><button onclick="deleteById('${deleteURL}', '<spring:message code="js.delete.confirm" arguments="${game.title}"/>')"><spring:message code="index.delete"/></button></td>
             <td><a href="${editURL}"><spring:message code="index.edit" /></a></td>
         </tr>
     </c:forEach>
