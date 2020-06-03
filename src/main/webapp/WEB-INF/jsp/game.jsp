@@ -11,7 +11,7 @@
 </head>
 <body>
 
-<tag:feedbackmessage message="${saveMessage}"/>
+<tag:feedbackmessage message="${saveMessage}" styles="bg-yellow"/>
     <p>Id: ${game.id}</p>
     <p><spring:message code="all.title"/> ${game.title}</p>
     <p><spring:message code="all.description"/>${game.description}</p>

@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="tag" tagdir="/WEB-INF/tags"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,6 +13,6 @@
     <a href="${indexURL}"><spring:message code="all.return"/></a>
     <br><br>
     <h1><spring:message code="error.standardmessage"/></h1>
-    <h3><spring:message code="${messageError}"/></h3>
+    <h3><tag:feedbackmessage message="${messageError}"/></h3>
 </body>
 </html>

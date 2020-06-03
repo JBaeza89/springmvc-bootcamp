@@ -1,5 +1,5 @@
 function deleteById(url, title) {
-    if (window.confirm(`Confirmar borrado del juego ${title}`)) {
+    if (window.confirm(`${confirmDelete} ${title}`)) {
         window.location = url;
     }
 }

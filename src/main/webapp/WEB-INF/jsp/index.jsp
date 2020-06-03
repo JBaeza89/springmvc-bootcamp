@@ -8,11 +8,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><spring:message code="index.title" /></title>
     <link rel="stylesheet" href="/css/style.css">
+    <script>const confirmDelete = "<spring:message code="js.delete.confirm"/>"</script>
     <script src="/js/index.js"></script>
 </head>
 <body>
 <h1><spring:message code="index.title" /></h1>
-<tag:feedbackmessage message="${deleteMessage}"/>
+<tag:feedbackmessage message="${deleteMessage}" styles="bg-yellow"/>
 <br>
 <c:url value="/game/new" var="newGameURL"/>
 <a href="${newGameURL}"><spring:message code="index.newgame" /></a>
