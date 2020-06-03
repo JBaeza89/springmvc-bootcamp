@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="tag" tagdir="/WEB-INF/tags"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -10,12 +11,12 @@
 </head>
 <body>
 
-<tag:feedbackmessage message="${saveMessage}"/>
+<tag:feedbackmessage message="${saveMessage}" styles="bg-yellow"/>
     <p>Id: ${game.id}</p>
-    <p>Titulo: ${game.title}</p>
-    <p>Descripcion: ${game.description}</p>
-    <p>Steam_ID: ${game.steamId}</p>
+    <p><spring:message code="all.title"/> ${game.title}</p>
+    <p><spring:message code="all.description"/>${game.description}</p>
+    <p><spring:message code="all.steamid"/>${game.steamId}</p>
     <c:url value="/" var="indexURL"/>
-    <a href="${indexURL}">Volver al inicio</a>
+    <a href="${indexURL}"><spring:message code="all.return"/></a>
 </body>
 </html>

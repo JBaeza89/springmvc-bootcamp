@@ -24,6 +24,7 @@ public class GameController {
         this.gameFacade = gameFacade;
     }
 
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String showIndex(Model model) {
         model.addAttribute("gameList", getGameFacade().findAll());
@@ -36,7 +37,7 @@ public class GameController {
             model.addAttribute("game", getGameFacade().findOne(gameId));
             return "game";
         } catch (NoSuchElementException ex) {
-            model.addAttribute("messageError", "No se ha encontrado juego con esa Id");
+            model.addAttribute("messageError", "controller.messagerror.notfoundgame");
             return "error";
         }
     }
@@ -45,9 +46,9 @@ public class GameController {
     public String deleteGameById(@PathVariable Long gameId, RedirectAttributes attributes) {
         try {
             getGameFacade().remove(gameId);
-            attributes.addFlashAttribute("deleteMessage", "Juego borrado correctamente");
+            attributes.addFlashAttribute("deleteMessage", "controller.delete.success");
         } catch (EmptyResultDataAccessException ex) {
-            attributes.addFlashAttribute("deleteMessage", "No se ha podido borrar el juego solicitado");
+            attributes.addFlashAttribute("deleteMessage", "controller.delete.failed");
         }
         return "redirect:/";
     }
@@ -63,7 +64,7 @@ public class GameController {
     @RequestMapping(value = "/game/new", method = RequestMethod.GET)
     public String showSaveGamePage(Model model) {
         model.addAttribute("game", new GameData());
-        model.addAttribute("title", "Agregar Juego");
+        model.addAttribute("title", "controller.title.addgame");
         return "savegame";
     }
 
@@ -72,11 +73,11 @@ public class GameController {
                                 BindingResult bindingResult, Model model, RedirectAttributes attributes) {
 
         if (bindingResult.hasErrors()) {
-            model.addAttribute("title", "Agregar Juego");
+            model.addAttribute("title", "controller.title.addgame");
             return "savegame";
         }
         Long id = getGameFacade().save(game).getId();
-        attributes.addFlashAttribute("saveMessage", "Juego agregado correctamente");
+        attributes.addFlashAttribute("saveMessage", "controller.save.success");
         return "redirect:/game/" + id;
     }
 
@@ -84,10 +85,10 @@ public class GameController {
     public String showSaveGamePage(@PathVariable Long gameId, Model model) {
         try {
             model.addAttribute("game", getGameFacade().findOne(gameId));
-            model.addAttribute("title", "Modificar Juego");
+            model.addAttribute("title", "controller.title.editgame");
             return "savegame";
         } catch (NoSuchElementException ex) {
-            model.addAttribute("messageError", "No se ha encontrado juego con esa Id");
+            model.addAttribute("messageError", "controller.messagerror.notfoundgame");
             return "error";
         }
     }
@@ -97,11 +98,11 @@ public class GameController {
                                  BindingResult bindingResult, Model model, RedirectAttributes attributes) {
         game.setId(gameId);
         if (bindingResult.hasErrors()) {
-            model.addAttribute("title", "Modificar Juego");
+            model.addAttribute("title", "controller.title.editgame");
             return "savegame";
         }
         getGameFacade().save(game);
-        attributes.addFlashAttribute("saveMessage", "Juego modificado correctamente");
+        attributes.addFlashAttribute("saveMessage", "controller.edit.success");
         return "redirect:/game/" + gameId;
     }
 }
