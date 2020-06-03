@@ -1,5 +1,5 @@
-function deleteById(url, title) {
-    if (window.confirm(`${confirmDelete} ${title}`)) {
+function deleteById(url, messageConfirm) {
+    if (window.confirm(`${messageConfirm} `)) {
         window.location = url;
     }
 }

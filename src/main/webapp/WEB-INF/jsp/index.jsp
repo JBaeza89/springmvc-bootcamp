@@ -8,7 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><spring:message code="index.title" /></title>
     <link rel="stylesheet" href="/css/style.css">
-    <script>const confirmDelete = "<spring:message code="js.delete.confirm"/>"</script>
     <script src="/js/index.js"></script>
 </head>
 <body>
@@ -35,7 +34,7 @@
         <tr>
             <td><a href="${gameURL}">${game.id}</a></td>
             <td><a href="${gameURL}">${game.title}</a></td>
-            <td><button onclick="deleteById('${deleteURL}', '${game.title}')"><spring:message code="index.delete"/></button></td>
+            <td><button onclick="deleteById('${deleteURL}', '<spring:message code="js.delete.confirm"/> ${game.title}')"><spring:message code="index.delete"/></button></td>
             <td><a href="${editURL}"><spring:message code="index.edit" /></a></td>
         </tr>
     </c:forEach>
