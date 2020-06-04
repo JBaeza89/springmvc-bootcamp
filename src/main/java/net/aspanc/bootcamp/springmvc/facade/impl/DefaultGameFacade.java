@@ -1,5 +1,8 @@
 package net.aspanc.bootcamp.springmvc.facade.impl;
 
+import com.ibasco.agql.protocols.valve.steam.webapi.SteamWebApiClient;
+import com.ibasco.agql.protocols.valve.steam.webapi.interfaces.SteamApps;
+import com.ibasco.agql.protocols.valve.steam.webapi.interfaces.SteamStorefront;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NonNull;
@@ -23,10 +26,13 @@ public class DefaultGameFacade implements GameFacade {
 
     private Converter<Game,GameData> converterGameEntityIntoGameData;
 
-    public DefaultGameFacade(GameService gameService, Converter<GameData, Game> converterGameDataIntoGameEntity, Converter<Game, GameData> converterGameEntityIntoGameData) {
+    private SteamStorefront steamStorefront;
+
+    public DefaultGameFacade(GameService gameService, Converter<GameData, Game> converterGameDataIntoGameEntity, Converter<Game, GameData> converterGameEntityIntoGameData, SteamStorefront steamStorefront) {
         this.gameService = gameService;
         this.converterGameDataIntoGameEntity = converterGameDataIntoGameEntity;
         this.converterGameEntityIntoGameData = converterGameEntityIntoGameData;
+        this.steamStorefront = steamStorefront;
     }
 
     @Override
@@ -65,5 +71,10 @@ public class DefaultGameFacade implements GameFacade {
     public GameData save(@NonNull final GameData inputGame) {
         final Game entityGame = getConverterGameDataIntoGameEntity().convert(inputGame);
         return getConverterGameEntityIntoGameData().convert(getGameService().save(entityGame));
+    }
+
+    @Override
+    public Object getGameDetailsBySteamID(@NonNull final Integer steamId) {
+        return getSteamStorefront().getAppDetails(steamId).join();
     }
 }

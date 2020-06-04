@@ -4,7 +4,7 @@ import net.aspanc.bootcamp.springmvc.data.GameData;
 
 import java.util.List;
 
-public interface GameFacade {
+public interface GameFacade extends SteamApiFacade {
 
     List<GameData> findAll();
     GameData findOne(Long id);
@@ -12,4 +12,5 @@ public interface GameFacade {
     List<GameData> findByQuery(String filter);
     void remove(Long id);
     GameData save(GameData inputGame);
+
 }

@@ -1,5 +1,7 @@
 package net.aspanc.bootcamp.springmvc.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.aspanc.bootcamp.springmvc.data.GameData;
@@ -20,10 +22,12 @@ public class GameController {
 
     private GameFacade gameFacade;
 
-    public GameController(GameFacade gameFacade) {
-        this.gameFacade = gameFacade;
-    }
+    private ObjectMapper objectMapper;
 
+    public GameController(GameFacade gameFacade, ObjectMapper objectMapper) {
+        this.gameFacade = gameFacade;
+        this.objectMapper = objectMapper;
+    }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String showIndex(Model model) {
@@ -104,5 +108,15 @@ public class GameController {
         getGameFacade().save(game);
         attributes.addFlashAttribute("saveMessage", "controller.edit.success");
         return "redirect:/game/" + gameId;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/game/steam/details/{steamId}", method = RequestMethod.GET)
+    public String getGameDetailsBySteamID(@PathVariable Integer steamId) {
+        try {
+            return getObjectMapper().writeValueAsString(getGameFacade().getGameDetailsBySteamID(steamId));
+        } catch (JsonProcessingException ex) {
+            return "controller.error.parseJson";
+        }
     }
 }

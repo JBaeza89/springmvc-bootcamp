@@ -27,13 +27,13 @@ public class Game {
 
     private String description;
 
-    private String steamId;
+    private Integer steamId;
 
     public Game(){
 
     }
 
-    public Game(String title, String description, String steamId) {
+    public Game(String title, String description, Integer steamId) {
         this.title = title;
         this.description = description;
         this.steamId = steamId;

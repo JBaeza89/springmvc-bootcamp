@@ -15,7 +15,7 @@ public class GameData {
     @NotEmpty
     private String title;
     private String description;
-    private String steamId;
+    private Integer steamId;
 
     public GameData setId(final Long id) {
         this.id = id;
@@ -32,7 +32,7 @@ public class GameData {
         return this;
     }
 
-    public GameData setSteamId(final String steamId) {
+    public GameData setSteamId(final Integer steamId) {
         this.steamId = steamId;
         return this;
     }
