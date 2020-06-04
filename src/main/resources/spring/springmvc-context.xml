@@ -9,8 +9,4 @@
           class="com.ibasco.agql.protocols.valve.steam.webapi.interfaces.SteamStorefront">
         <constructor-arg ref="SteamWebApiClient"/>
     </bean>
-    <bean id="ObjectMapper"
-          class="com.fasterxml.jackson.databind.ObjectMapper">
-    </bean>
-
 </beans>

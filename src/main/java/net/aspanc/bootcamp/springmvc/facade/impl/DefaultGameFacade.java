@@ -1,7 +1,5 @@
 package net.aspanc.bootcamp.springmvc.facade.impl;
 
-import com.ibasco.agql.protocols.valve.steam.webapi.SteamWebApiClient;
-import com.ibasco.agql.protocols.valve.steam.webapi.interfaces.SteamApps;
 import com.ibasco.agql.protocols.valve.steam.webapi.interfaces.SteamStorefront;
 import com.ibasco.agql.protocols.valve.steam.webapi.pojos.StoreAppDetails;
 import lombok.AccessLevel;

@@ -2,7 +2,9 @@ package net.aspanc.bootcamp.springmvc.data;
 
 
 import lombok.Data;
+import org.springframework.format.annotation.NumberFormat;
 
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -15,6 +17,7 @@ public class GameData {
     @NotEmpty
     private String title;
     private String description;
+    @Digits(integer = 10, fraction = 0)
     private Integer steamId;
 
     public GameData setId(final Long id) {

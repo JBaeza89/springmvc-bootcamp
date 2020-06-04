@@ -1,10 +1,11 @@
 package net.aspanc.bootcamp.springmvc.facade;
 
+import com.ibasco.agql.protocols.valve.steam.webapi.pojos.StoreAppDetails;
 import net.aspanc.bootcamp.springmvc.data.GameData;
 
 import java.util.List;
 
-public interface GameFacade extends SteamApiFacade {
+public interface GameFacade {
 
     List<GameData> findAll();
     GameData findOne(Long id);
@@ -12,5 +13,5 @@ public interface GameFacade extends SteamApiFacade {
     List<GameData> findByQuery(String filter);
     void remove(Long id);
     GameData save(GameData inputGame);
-
+    StoreAppDetails getGameDetailsBySteamID(Integer steamId);
 }
