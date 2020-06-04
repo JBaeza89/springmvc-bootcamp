@@ -29,6 +29,7 @@ dependencies {
     implementation "org.springframework.session:spring-session-core"
     implementation "org.apache.tomcat.embed:tomcat-embed-jasper"
     implementation "javax.servlet:jstl"
+    implementation "com.ibasco.agql:agql-steam-webapi:0.1.7"
     developmentOnly "org.springframework.boot:spring-boot-devtools"
     runtimeOnly "mysql:mysql-connector-java"
     runtimeOnly "org.hsqldb:hsqldb"
