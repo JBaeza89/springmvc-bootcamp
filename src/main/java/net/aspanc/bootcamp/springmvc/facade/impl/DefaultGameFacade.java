@@ -3,6 +3,7 @@ package net.aspanc.bootcamp.springmvc.facade.impl;
 import com.ibasco.agql.protocols.valve.steam.webapi.SteamWebApiClient;
 import com.ibasco.agql.protocols.valve.steam.webapi.interfaces.SteamApps;
 import com.ibasco.agql.protocols.valve.steam.webapi.interfaces.SteamStorefront;
+import com.ibasco.agql.protocols.valve.steam.webapi.pojos.StoreAppDetails;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NonNull;
@@ -74,7 +75,7 @@ public class DefaultGameFacade implements GameFacade {
     }
 
     @Override
-    public Object getGameDetailsBySteamID(@NonNull final Integer steamId) {
+    public StoreAppDetails getGameDetailsBySteamID(@NonNull final Integer steamId) {
         return getSteamStorefront().getAppDetails(steamId).join();
     }
 }
