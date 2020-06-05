@@ -44,7 +44,7 @@ public class DefaultGameServiceIntegrationTest {
 
     @Test
     public void create() {
-        final Game game = gameService.save(new Game("Witcher 3", "Epic fantasy", "GR77"));
+        final Game game = gameService.save(new Game("Witcher 3", "Epic fantasy", 7855));
         Assert.assertTrue("Game are not in DataBase", gameService.existById(game.getId()));
     }
 

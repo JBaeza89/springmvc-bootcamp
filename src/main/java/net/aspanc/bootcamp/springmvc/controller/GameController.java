@@ -1,5 +1,8 @@
 package net.aspanc.bootcamp.springmvc.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ibasco.agql.protocols.valve.steam.webapi.pojos.StoreAppDetails;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.aspanc.bootcamp.springmvc.data.GameData;
@@ -23,7 +26,6 @@ public class GameController {
     public GameController(GameFacade gameFacade) {
         this.gameFacade = gameFacade;
     }
-
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String showIndex(Model model) {
@@ -104,5 +106,11 @@ public class GameController {
         getGameFacade().save(game);
         attributes.addFlashAttribute("saveMessage", "controller.edit.success");
         return "redirect:/game/" + gameId;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/game/steam/details/{steamId}", method = RequestMethod.GET)
+    public StoreAppDetails getGameDetailsBySteamID(@PathVariable Integer steamId) {
+        return getGameFacade().getGameDetailsBySteamID(steamId);
     }
 }
