@@ -8,6 +8,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NonNull;
 import net.aspanc.bootcamp.springmvc.data.GameData;
+import net.aspanc.bootcamp.springmvc.data.SteamNewsData;
 import net.aspanc.bootcamp.springmvc.entities.Game;
 import net.aspanc.bootcamp.springmvc.facade.GameFacade;
 import net.aspanc.bootcamp.springmvc.services.GameService;
@@ -15,7 +16,6 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 @Getter(AccessLevel.PROTECTED)
@@ -28,14 +28,21 @@ public class DefaultGameFacade implements GameFacade {
 
     private Converter<Game,GameData> converterGameEntityIntoGameData;
 
+    private Converter<SteamNewsItem, SteamNewsData> converterSteamNewsData;
+
     private SteamStorefront steamStorefront;
 
     private SteamNews steamNews;
 
-    public DefaultGameFacade(GameService gameService, Converter<GameData, Game> converterGameDataIntoGameEntity, Converter<Game, GameData> converterGameEntityIntoGameData, SteamStorefront steamStorefront, SteamNews steamNews) {
+    public DefaultGameFacade(GameService gameService, Converter<GameData, Game> converterGameDataIntoGameEntity,
+                             Converter<Game, GameData> converterGameEntityIntoGameData,
+                             Converter<SteamNewsItem, SteamNewsData> converterSteamNewsData,
+                             SteamStorefront steamStorefront, SteamNews steamNews) {
+
         this.gameService = gameService;
         this.converterGameDataIntoGameEntity = converterGameDataIntoGameEntity;
         this.converterGameEntityIntoGameData = converterGameEntityIntoGameData;
+        this.converterSteamNewsData = converterSteamNewsData;
         this.steamStorefront = steamStorefront;
         this.steamNews = steamNews;
     }
@@ -84,7 +91,11 @@ public class DefaultGameFacade implements GameFacade {
     }
 
     @Override
-    public List<SteamNewsItem> getGameNewsBySteamID(@NonNull final Integer steamId) {
-        return getSteamNews().getNewsForApp(steamId, 500, -1, 5, "").join();
+    public List<SteamNewsData> getGameNewsBySteamID(@NonNull final Integer steamId) {
+        return getSteamNews().getNewsForApp(steamId, 500, -1, 5, "")
+                .join()
+                .stream()
+                .map(item -> getConverterSteamNewsData().convert(item))
+                .collect(Collectors.toList());
     }
 }

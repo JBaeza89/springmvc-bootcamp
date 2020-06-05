@@ -7,6 +7,7 @@ import com.ibasco.agql.protocols.valve.steam.webapi.pojos.StoreAppDetails;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.aspanc.bootcamp.springmvc.data.GameData;
+import net.aspanc.bootcamp.springmvc.data.SteamNewsData;
 import net.aspanc.bootcamp.springmvc.facade.GameFacade;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
@@ -118,7 +119,7 @@ public class GameController {
 
     @ResponseBody
     @RequestMapping(value = "/game/steam/news/{steamId}", method = RequestMethod.GET)
-    public List<SteamNewsItem>  getGameNewsBySteamID(@PathVariable Integer steamId) {
+    public List<SteamNewsData>  getGameNewsBySteamID(@PathVariable Integer steamId) {
         return getGameFacade().getGameNewsBySteamID(steamId);
     }
 }
