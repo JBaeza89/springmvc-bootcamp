@@ -1,6 +1,8 @@
 package net.aspanc.bootcamp.springmvc.facade.impl;
 
+import com.ibasco.agql.protocols.valve.steam.webapi.interfaces.SteamNews;
 import com.ibasco.agql.protocols.valve.steam.webapi.interfaces.SteamStorefront;
+import com.ibasco.agql.protocols.valve.steam.webapi.pojos.SteamNewsItem;
 import com.ibasco.agql.protocols.valve.steam.webapi.pojos.StoreAppDetails;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -13,6 +15,7 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 @Getter(AccessLevel.PROTECTED)
@@ -27,11 +30,14 @@ public class DefaultGameFacade implements GameFacade {
 
     private SteamStorefront steamStorefront;
 
-    public DefaultGameFacade(GameService gameService, Converter<GameData, Game> converterGameDataIntoGameEntity, Converter<Game, GameData> converterGameEntityIntoGameData, SteamStorefront steamStorefront) {
+    private SteamNews steamNews;
+
+    public DefaultGameFacade(GameService gameService, Converter<GameData, Game> converterGameDataIntoGameEntity, Converter<Game, GameData> converterGameEntityIntoGameData, SteamStorefront steamStorefront, SteamNews steamNews) {
         this.gameService = gameService;
         this.converterGameDataIntoGameEntity = converterGameDataIntoGameEntity;
         this.converterGameEntityIntoGameData = converterGameEntityIntoGameData;
         this.steamStorefront = steamStorefront;
+        this.steamNews = steamNews;
     }
 
     @Override
@@ -75,5 +81,10 @@ public class DefaultGameFacade implements GameFacade {
     @Override
     public StoreAppDetails getGameDetailsBySteamID(@NonNull final Integer steamId) {
         return getSteamStorefront().getAppDetails(steamId).join();
+    }
+
+    @Override
+    public List<SteamNewsItem> getGameNewsBySteamID(@NonNull final Integer steamId) {
+        return getSteamNews().getNewsForApp(steamId, 500, -1, 5, "").join();
     }
 }
