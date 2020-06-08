@@ -19,7 +19,7 @@
 <c:url value="/game" var="queryURL"/>
 <form action="${queryURL}" method="get">
 <input type="text" name="q" value="${q}" placeholder="<spring:message code="index.placeholder" />">
-<button type="submit"><spring:message code="index.button"/></button>
+<button class="btn btn-danger" type="submit"><spring:message code="index.button"/></button>
 </form>
 <table id="tabla">
     <tr>
