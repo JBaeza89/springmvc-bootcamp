@@ -4,3 +4,7 @@
 .errorMessage {
     color: red;
 }
+.screenshot {
+    height: 40%;
+    width: 60%;
+}

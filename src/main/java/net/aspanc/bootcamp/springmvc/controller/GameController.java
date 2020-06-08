@@ -1,12 +1,10 @@
 package net.aspanc.bootcamp.springmvc.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ibasco.agql.protocols.valve.steam.webapi.pojos.SteamNewsItem;
-import com.ibasco.agql.protocols.valve.steam.webapi.pojos.StoreAppDetails;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.aspanc.bootcamp.springmvc.data.GameData;
+import net.aspanc.bootcamp.springmvc.data.ScreenshotData;
+import net.aspanc.bootcamp.springmvc.data.SteamNewsData;
 import net.aspanc.bootcamp.springmvc.facade.GameFacade;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
@@ -112,13 +110,13 @@ public class GameController {
 
     @ResponseBody
     @RequestMapping(value = "/game/steam/details/{steamId}", method = RequestMethod.GET)
-    public StoreAppDetails getGameDetailsBySteamID(@PathVariable Integer steamId) {
-        return getGameFacade().getGameDetailsBySteamID(steamId);
+    public ScreenshotData getGameDetailsBySteamID(@PathVariable Integer steamId) {
+        return gameFacade.getGameDetailsBySteamID(steamId);
     }
 
     @ResponseBody
     @RequestMapping(value = "/game/steam/news/{steamId}", method = RequestMethod.GET)
-    public List<SteamNewsItem>  getGameNewsBySteamID(@PathVariable Integer steamId) {
+    public List<SteamNewsData>  getGameNewsBySteamID(@PathVariable Integer steamId) {
         return getGameFacade().getGameNewsBySteamID(steamId);
     }
 }

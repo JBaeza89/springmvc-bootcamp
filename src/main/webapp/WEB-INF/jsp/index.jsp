@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><spring:message code="index.title" /></title>
-    <link rel="stylesheet" href="/css/style.css">
+    <tag:dependencies/>
     <script src="/js/index.js"></script>
 </head>
 <body>
@@ -21,7 +21,7 @@
 <input type="text" name="q" value="${q}" placeholder="<spring:message code="index.placeholder" />">
 <button type="submit"><spring:message code="index.button"/></button>
 </form>
-<table>
+<table id="tabla">
     <tr>
         <th>ID</th>
         <th><spring:message code="index.gametitle" /></th>

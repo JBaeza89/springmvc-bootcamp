@@ -2,7 +2,6 @@ package net.aspanc.bootcamp.springmvc.data;
 
 
 import lombok.Data;
-import org.springframework.format.annotation.NumberFormat;
 
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotEmpty;
