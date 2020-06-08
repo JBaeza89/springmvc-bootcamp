@@ -1,11 +1,11 @@
 $(function() {
     const steamId = $("#steamId").html();
     fetch(`/game/steam/details/${steamId}`)
-        .then((res) => res.text())
+        .then((res) => res.json())
         .then((res) => {
             const img = $("<img/>")
             img.addClass("screenshot")
-            img.attr("src", res);
+            img.attr("src", res.url);
            $("#screenshot").append(img);
         });
 

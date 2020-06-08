@@ -1,0 +1,11 @@
+package net.aspanc.bootcamp.springmvc.data;
+
+import lombok.Data;
+import lombok.experimental.Accessors;
+
+@Data
+@Accessors(chain = true)
+public class ScreenshotData {
+
+    private String url;
+}

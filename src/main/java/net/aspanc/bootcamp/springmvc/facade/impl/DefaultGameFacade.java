@@ -8,6 +8,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NonNull;
 import net.aspanc.bootcamp.springmvc.data.GameData;
+import net.aspanc.bootcamp.springmvc.data.ScreenshotData;
 import net.aspanc.bootcamp.springmvc.data.SteamNewsData;
 import net.aspanc.bootcamp.springmvc.entities.Game;
 import net.aspanc.bootcamp.springmvc.facade.GameFacade;
@@ -30,6 +31,8 @@ public class DefaultGameFacade implements GameFacade {
 
     private Converter<SteamNewsItem, SteamNewsData> converterSteamNewsData;
 
+    private Converter<StoreAppScreenshots, ScreenshotData> converterScreenshot;
+
     private SteamStorefront steamStorefront;
 
     private SteamNews steamNews;
@@ -37,12 +40,14 @@ public class DefaultGameFacade implements GameFacade {
     public DefaultGameFacade(GameService gameService, Converter<GameData, Game> converterGameDataIntoGameEntity,
                              Converter<Game, GameData> converterGameEntityIntoGameData,
                              Converter<SteamNewsItem, SteamNewsData> converterSteamNewsData,
+                             Converter<StoreAppScreenshots, ScreenshotData> converterScreenshot,
                              SteamStorefront steamStorefront, SteamNews steamNews) {
 
         this.gameService = gameService;
         this.converterGameDataIntoGameEntity = converterGameDataIntoGameEntity;
         this.converterGameEntityIntoGameData = converterGameEntityIntoGameData;
         this.converterSteamNewsData = converterSteamNewsData;
+        this.converterScreenshot = converterScreenshot;
         this.steamStorefront = steamStorefront;
         this.steamNews = steamNews;
     }
@@ -86,12 +91,16 @@ public class DefaultGameFacade implements GameFacade {
     }
 
     @Override
-    public String getGameDetailsBySteamID(@NonNull final Integer steamId) {
+    public ScreenshotData getGameDetailsBySteamID(@NonNull final Integer steamId) {
         List<StoreAppScreenshots> screenshots = getSteamStorefront()
                 .getAppDetails(steamId)
                 .join()
                 .getScreenshots();
-        return screenshots.get((int)(Math.random() * screenshots.size())).getFullPath();
+        if (screenshots.isEmpty()) {
+            return new ScreenshotData().setUrl("https://image.shutterstock.com/z/stock-vector-no-image-available-sign-absence-of-image-373243873.jpg");
+        }
+        return converterScreenshot.convert(screenshots
+                .get((int)(Math.random() * screenshots.size())));
     }
 
     @Override

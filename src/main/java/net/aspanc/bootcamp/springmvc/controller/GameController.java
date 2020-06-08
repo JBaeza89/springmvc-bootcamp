@@ -3,6 +3,7 @@ package net.aspanc.bootcamp.springmvc.controller;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.aspanc.bootcamp.springmvc.data.GameData;
+import net.aspanc.bootcamp.springmvc.data.ScreenshotData;
 import net.aspanc.bootcamp.springmvc.data.SteamNewsData;
 import net.aspanc.bootcamp.springmvc.facade.GameFacade;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -109,12 +110,8 @@ public class GameController {
 
     @ResponseBody
     @RequestMapping(value = "/game/steam/details/{steamId}", method = RequestMethod.GET)
-    public String getGameDetailsBySteamID(@PathVariable Integer steamId) {
-        try {
-            return gameFacade.getGameDetailsBySteamID(steamId);
-        } catch (NullPointerException ex) {
-            return "https://image.shutterstock.com/z/stock-vector-no-image-available-sign-absence-of-image-373243873.jpg";
-        }
+    public ScreenshotData getGameDetailsBySteamID(@PathVariable Integer steamId) {
+        return gameFacade.getGameDetailsBySteamID(steamId);
     }
 
     @ResponseBody
