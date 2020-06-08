@@ -3,7 +3,7 @@ package net.aspanc.bootcamp.springmvc.facade.impl;
 import com.ibasco.agql.protocols.valve.steam.webapi.interfaces.SteamNews;
 import com.ibasco.agql.protocols.valve.steam.webapi.interfaces.SteamStorefront;
 import com.ibasco.agql.protocols.valve.steam.webapi.pojos.SteamNewsItem;
-import com.ibasco.agql.protocols.valve.steam.webapi.pojos.StoreAppDetails;
+import com.ibasco.agql.protocols.valve.steam.webapi.pojos.StoreAppScreenshots;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NonNull;
@@ -86,8 +86,12 @@ public class DefaultGameFacade implements GameFacade {
     }
 
     @Override
-    public StoreAppDetails getGameDetailsBySteamID(@NonNull final Integer steamId) {
-        return getSteamStorefront().getAppDetails(steamId).join();
+    public StoreAppScreenshots getGameDetailsBySteamID(@NonNull final Integer steamId) {
+        List<StoreAppScreenshots> screenshots = getSteamStorefront()
+                .getAppDetails(steamId)
+                .join()
+                .getScreenshots();
+        return screenshots.get((int)(Math.random() * screenshots.size()));
     }
 
     @Override

@@ -1,6 +1,7 @@
 package net.aspanc.bootcamp.springmvc.facade;
 
 import com.ibasco.agql.protocols.valve.steam.webapi.pojos.StoreAppDetails;
+import com.ibasco.agql.protocols.valve.steam.webapi.pojos.StoreAppScreenshots;
 import lombok.NonNull;
 import net.aspanc.bootcamp.springmvc.data.GameData;
 import net.aspanc.bootcamp.springmvc.data.SteamNewsData;
@@ -15,6 +16,6 @@ public interface GameFacade {
     List<GameData> findByQuery(String filter);
     void remove(Long id);
     GameData save(GameData inputGame);
-    StoreAppDetails getGameDetailsBySteamID(Integer steamId);
+    StoreAppScreenshots getGameDetailsBySteamID(Integer steamId);
     List<SteamNewsData> getGameNewsBySteamID(@NonNull final Integer steamId);
 }
