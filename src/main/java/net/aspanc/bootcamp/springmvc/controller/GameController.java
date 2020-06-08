@@ -1,6 +1,5 @@
 package net.aspanc.bootcamp.springmvc.controller;
 
-import com.ibasco.agql.protocols.valve.steam.webapi.pojos.StoreAppScreenshots;
 import lombok.AccessLevel;
 import lombok.Getter;
 import net.aspanc.bootcamp.springmvc.data.GameData;
@@ -110,8 +109,12 @@ public class GameController {
 
     @ResponseBody
     @RequestMapping(value = "/game/steam/details/{steamId}", method = RequestMethod.GET)
-    public StoreAppScreenshots getGameDetailsBySteamID(@PathVariable Integer steamId) {
-        return gameFacade.getGameDetailsBySteamID(steamId);
+    public String getGameDetailsBySteamID(@PathVariable Integer steamId) {
+        try {
+            return gameFacade.getGameDetailsBySteamID(steamId);
+        } catch (NullPointerException ex) {
+            return "https://image.shutterstock.com/z/stock-vector-no-image-available-sign-absence-of-image-373243873.jpg";
+        }
     }
 
     @ResponseBody

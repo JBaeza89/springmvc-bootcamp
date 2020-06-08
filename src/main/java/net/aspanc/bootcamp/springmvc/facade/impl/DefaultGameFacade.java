@@ -86,12 +86,12 @@ public class DefaultGameFacade implements GameFacade {
     }
 
     @Override
-    public StoreAppScreenshots getGameDetailsBySteamID(@NonNull final Integer steamId) {
+    public String getGameDetailsBySteamID(@NonNull final Integer steamId) {
         List<StoreAppScreenshots> screenshots = getSteamStorefront()
                 .getAppDetails(steamId)
                 .join()
                 .getScreenshots();
-        return screenshots.get((int)(Math.random() * screenshots.size()));
+        return screenshots.get((int)(Math.random() * screenshots.size())).getFullPath();
     }
 
     @Override

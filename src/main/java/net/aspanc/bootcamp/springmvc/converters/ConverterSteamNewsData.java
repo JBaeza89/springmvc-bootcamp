@@ -13,6 +13,8 @@ public class ConverterSteamNewsData implements Converter<SteamNewsItem, SteamNew
         return new SteamNewsData()
                 .setAuthor(item.getAuthor())
                 .setContent(item.getContents())
-                .setTitle(item.getTitle());
+                .setTitle(item.getTitle())
+                .setUrl(item.getUrl());
+
     }
 }

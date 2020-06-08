@@ -10,5 +10,6 @@ public class SteamNewsData {
     private String title;
     private String content;
     private String author;
+    private String url;
 
 }

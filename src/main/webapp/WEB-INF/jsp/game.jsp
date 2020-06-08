@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>${game.title}</title>
     <tag:dependencies/>
-    <script src="/js/simplegame.js"></script>
+    <script src="/js/game.js"></script>
 </head>
 <body>
 
@@ -21,5 +21,7 @@
     <div id="news"></div>
     <c:url value="/" var="indexURL"/>
     <a href="${indexURL}"><spring:message code="all.return"/></a>
+
+
 </body>
 </html>
