@@ -22,11 +22,9 @@
     <c:url value="/" var="indexURL"/>
     <a href="${indexURL}"><spring:message code="all.return"/></a>
     <c:url value="/game/steam/details/${game.steamId}" var="urlDetails"/>
+    <input type="hidden" id="urlDetails" data="${urlDetails}">
     <c:url value="/game/steam/news/${game.steamId}" var="urlNews"/>
-    <script>
-        var urlDetails = "${urlDetails}";
-        var urlNews = "${urlNews}";
-    </script>
+    <input type="hidden" id="urlNews" data="${urlNews}">
 
 
 </body>

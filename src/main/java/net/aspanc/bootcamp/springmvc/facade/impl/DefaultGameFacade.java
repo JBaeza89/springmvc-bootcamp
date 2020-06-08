@@ -98,7 +98,7 @@ public class DefaultGameFacade implements GameFacade {
                 .getAppDetails(steamId)
                 .join()
                 .getScreenshots();
-        if (screenshots != null && !screenshots.isEmpty()) {
+        if (screenshots == null || screenshots.isEmpty()) {
             return new ScreenshotData().setUrl("https://image.shutterstock.com/z/stock-vector-no-image-available-sign-absence-of-image-373243873.jpg");
         }
         return converterScreenshot.convert(screenshots

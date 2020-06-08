@@ -1,20 +1,16 @@
 $(function() {
-    console.log(urlDetails);
-    console.log(urlNews);
-    fetch(`${urlDetails}`)
+    fetch($("#urlDetails").attr("data"))
         .then((res) => res.json())
         .then((res) => {
-            console.log(res);
             const img = $("<img/>")
             img.addClass("screenshot")
             img.attr("src", res.url);
            $("#screenshot").append(img);
         });
 
-    fetch(`${urlNews}`)
+    fetch($("#urlNews").attr("data"))
         .then((res) => res.json())
         .then((res) => {
-            console.log(res)
             const news = $("#news");
             res.forEach((article) => {
                 let container = $("<div/>");
