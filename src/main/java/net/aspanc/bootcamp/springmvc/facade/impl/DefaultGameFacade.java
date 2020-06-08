@@ -1,5 +1,6 @@
 package net.aspanc.bootcamp.springmvc.facade.impl;
 
+import com.ibasco.agql.core.exceptions.BadRequestException;
 import com.ibasco.agql.protocols.valve.steam.webapi.interfaces.SteamNews;
 import com.ibasco.agql.protocols.valve.steam.webapi.interfaces.SteamStorefront;
 import com.ibasco.agql.protocols.valve.steam.webapi.pojos.SteamNewsItem;
@@ -27,7 +28,7 @@ public class DefaultGameFacade implements GameFacade {
 
     private Converter<GameData, Game> converterGameDataIntoGameEntity;
 
-    private Converter<Game,GameData> converterGameEntityIntoGameData;
+    private Converter<Game, GameData> converterGameEntityIntoGameData;
 
     private Converter<SteamNewsItem, SteamNewsData> converterSteamNewsData;
 
@@ -55,15 +56,15 @@ public class DefaultGameFacade implements GameFacade {
     @Override
     public List<GameData> findAll() {
         return getGameService().findAll()
-                          .stream()
-                          .map(game -> getConverterGameEntityIntoGameData().convert(game))
-                          .collect(Collectors.toList());
+                .stream()
+                .map(game -> getConverterGameEntityIntoGameData().convert(game))
+                .collect(Collectors.toList());
     }
 
     @Override
     public GameData findOne(@NonNull final Long id) {
         return getConverterGameEntityIntoGameData().convert(getGameService().findOne(id)
-                                                                  .orElseThrow());
+                .orElseThrow());
     }
 
     @Override
@@ -92,15 +93,16 @@ public class DefaultGameFacade implements GameFacade {
 
     @Override
     public ScreenshotData getGameDetailsBySteamID(@NonNull final Integer steamId) {
+
         List<StoreAppScreenshots> screenshots = getSteamStorefront()
                 .getAppDetails(steamId)
                 .join()
                 .getScreenshots();
-        if (screenshots.isEmpty()) {
+        if (screenshots != null && !screenshots.isEmpty()) {
             return new ScreenshotData().setUrl("https://image.shutterstock.com/z/stock-vector-no-image-available-sign-absence-of-image-373243873.jpg");
         }
         return converterScreenshot.convert(screenshots
-                .get((int)(Math.random() * screenshots.size())));
+                .get((int) (Math.random() * screenshots.size())));
     }
 
     @Override

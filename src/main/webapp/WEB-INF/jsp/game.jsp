@@ -17,10 +17,16 @@
     <p><spring:message code="all.title"/> ${game.title}</p>
     <div id="screenshot"></div>
     <p><spring:message code="all.description"/>${game.description}</p>
-    <p><spring:message code="all.steamid"/><span id="steamId">${game.steamId}</span></p>
+    <p><spring:message code="all.steamid"/>${game.steamId}</p>
     <div id="news"></div>
     <c:url value="/" var="indexURL"/>
     <a href="${indexURL}"><spring:message code="all.return"/></a>
+    <c:url value="/game/steam/details/${game.steamId}" var="urlDetails"/>
+    <c:url value="/game/steam/news/${game.steamId}" var="urlNews"/>
+    <script>
+        var urlDetails = "${urlDetails}";
+        var urlNews = "${urlNews}";
+    </script>
 
 
 </body>
