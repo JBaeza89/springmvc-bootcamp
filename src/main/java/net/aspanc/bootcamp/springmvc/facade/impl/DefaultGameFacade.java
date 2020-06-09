@@ -1,6 +1,5 @@
 package net.aspanc.bootcamp.springmvc.facade.impl;
 
-import com.ibasco.agql.core.exceptions.BadRequestException;
 import com.ibasco.agql.protocols.valve.steam.webapi.interfaces.SteamNews;
 import com.ibasco.agql.protocols.valve.steam.webapi.interfaces.SteamStorefront;
 import com.ibasco.agql.protocols.valve.steam.webapi.pojos.SteamNewsItem;
@@ -14,11 +13,13 @@ import net.aspanc.bootcamp.springmvc.data.SteamNewsData;
 import net.aspanc.bootcamp.springmvc.entities.Game;
 import net.aspanc.bootcamp.springmvc.facade.GameFacade;
 import net.aspanc.bootcamp.springmvc.services.GameService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
 
 @Getter(AccessLevel.PROTECTED)
 @Component("defaultGameFacade")
@@ -37,6 +38,11 @@ public class DefaultGameFacade implements GameFacade {
     private SteamStorefront steamStorefront;
 
     private SteamNews steamNews;
+
+    @Value("${app.steamapi.news.content}")
+    public Integer contentLength;
+    @Value("${app.steamapi.news.count}")
+    public Integer newsCount;
 
     public DefaultGameFacade(GameService gameService, Converter<GameData, Game> converterGameDataIntoGameEntity,
                              Converter<Game, GameData> converterGameEntityIntoGameData,
@@ -107,7 +113,7 @@ public class DefaultGameFacade implements GameFacade {
 
     @Override
     public List<SteamNewsData> getGameNewsBySteamID(@NonNull final Integer steamId) {
-        return getSteamNews().getNewsForApp(steamId, 500, -1, 5, "")
+        return getSteamNews().getNewsForApp(steamId, contentLength, -1, newsCount, "")
                 .join()
                 .stream()
                 .map(item -> getConverterSteamNewsData().convert(item))
