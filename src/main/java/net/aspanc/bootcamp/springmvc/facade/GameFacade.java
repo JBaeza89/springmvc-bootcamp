@@ -16,5 +16,5 @@ public interface GameFacade {
     void remove(Long id);
     GameData save(GameData inputGame);
     ScreenshotData getGameDetailsBySteamID(Integer steamId);
-    List<SteamNewsData> getGameNewsBySteamID(@NonNull final Integer steamId);
+    List<SteamNewsData> getGameNewsBySteamID(Integer steamId);
 }
