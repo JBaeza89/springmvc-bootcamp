@@ -40,9 +40,9 @@ public class DefaultGameFacade implements GameFacade {
     private SteamNews steamNews;
 
     @Value("${app.steamapi.news.content}")
-    public Integer CONTENT_LENGTH;
+    public Integer contentLength;
     @Value("${app.steamapi.news.count}")
-    public Integer NEWS_COUNT;
+    public Integer newsCount;
 
     public DefaultGameFacade(GameService gameService, Converter<GameData, Game> converterGameDataIntoGameEntity,
                              Converter<Game, GameData> converterGameEntityIntoGameData,
@@ -113,7 +113,7 @@ public class DefaultGameFacade implements GameFacade {
 
     @Override
     public List<SteamNewsData> getGameNewsBySteamID(@NonNull final Integer steamId) {
-        return getSteamNews().getNewsForApp(steamId, CONTENT_LENGTH, -1, NEWS_COUNT, "")
+        return getSteamNews().getNewsForApp(steamId, contentLength, -1, newsCount, "")
                 .join()
                 .stream()
                 .map(item -> getConverterSteamNewsData().convert(item))
