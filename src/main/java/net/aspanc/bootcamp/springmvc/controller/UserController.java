@@ -76,7 +76,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/admin/rest/user/{userId}", method = RequestMethod.PUT)
-    public ResponseEntity updateUser(@PathVariable final Long userId,
+    public ResponseEntity<List<String>> updateUser(@PathVariable final Long userId,
                                      @Valid @RequestBody CredentialsData credentials,
                                      BindingResult bindingResult) {
 
