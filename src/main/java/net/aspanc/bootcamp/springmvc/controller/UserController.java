@@ -4,7 +4,9 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import net.aspanc.bootcamp.springmvc.data.CredentialsData;
 import net.aspanc.bootcamp.springmvc.facade.CredentialsFacade;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 import org.springframework.web.bind.WebDataBinder;
@@ -32,19 +34,15 @@ public class UserController {
     }
 
     @RequestMapping(value = "/admin/rest/users", method = RequestMethod.GET)
-    public List<CredentialsData> getAllUsers() {
+    public List<CredentialsData> getUsers(@Nullable @RequestParam(value = "q") final String query) {
+        if (query != null) {
+            return credentialsFacade.findByQuery(query);
+        }
         return credentialsFacade.findAll();
     }
 
-    @RequestMapping(value = "/admin/rest/users?q=", method = RequestMethod.GET)
-    public List<CredentialsData> getAllUsersByQuery(@RequestParam(value = "q") String query) {
-        return credentialsFacade.findByQuery(query);
-    }
-
-    @RequestMapping(value = "/admin/rest/user", method = RequestMethod.POST)
-    public ResponseEntity createUser(@Valid @ModelAttribute("credentials") CredentialsData credentials,
-                                             BindingResult bindingResult) {
-
+    private ResponseEntity checkValidationAndSaveUser(final CredentialsData credentials,
+                                                      final BindingResult bindingResult) {
         try {
             if (bindingResult.hasErrors()) {
                 return ResponseEntity.status(400).body(
@@ -54,50 +52,48 @@ public class UserController {
                                 .collect(Collectors.toList()));
             }
             if (credentialsFacade.existById(credentialsFacade.save(credentials).getId())) {
-                return ResponseEntity.status(201).body(null);
+                return new ResponseEntity(HttpStatus.valueOf(201));
             }
-            return ResponseEntity.status(500).body(null);
+            return new ResponseEntity(HttpStatus.valueOf(500));
         } catch (Exception ex) {
-            return ResponseEntity.status(500).body(null);
+            return new ResponseEntity(HttpStatus.valueOf(500));
         }
+    }
+
+    @RequestMapping(value = "/admin/rest/user", method = RequestMethod.POST)
+    public ResponseEntity<List<String>> createUser(@Valid @RequestBody final CredentialsData credentials,
+                                                   final BindingResult bindingResult) {
+        return checkValidationAndSaveUser(credentials, bindingResult);
+
     }
 
     @RequestMapping(value = "/admin/rest/user/{userId}", method = RequestMethod.GET)
-    public ResponseEntity getUserById(@PathVariable Long userId) {
+    public ResponseEntity getUserById(@PathVariable final Long userId) {
         if (getCredentialsFacade().existById(userId)) {
             return ResponseEntity.ok().body(getCredentialsFacade().findOne(userId));
         }
-        return ResponseEntity.status(404).body(null);
+        return new ResponseEntity(HttpStatus.valueOf(404));
     }
 
     @RequestMapping(value = "/admin/rest/user/{userId}", method = RequestMethod.PUT)
-    public ResponseEntity updateUser(@PathVariable Long userId,
-                                     @Valid @ModelAttribute("credentials") CredentialsData credentials,
+    public ResponseEntity updateUser(@PathVariable final Long userId,
+                                     @Valid @RequestBody CredentialsData credentials,
                                      BindingResult bindingResult) {
+
+        credentials.setId(userId);
         if (getCredentialsFacade().existById(userId)) {
-            try {
-                if (bindingResult.hasErrors()) {
-                    return ResponseEntity.status(400).body(
-                            bindingResult.getFieldErrors()
-                                    .stream()
-                                    .map(fieldError -> fieldError.toString())
-                                    .collect(Collectors.toList()));
-                }
-                return ResponseEntity.status(201).body(null);
-            } catch (Exception ex) {
-                return ResponseEntity.status(500).body(null);
-            }
+            return checkValidationAndSaveUser(credentials, bindingResult);
         }
-        return ResponseEntity.status(404).body(null);
+        return new ResponseEntity(HttpStatus.valueOf(404));
     }
 
     @RequestMapping(value = "/admin/rest/user/{userId}", method = RequestMethod.DELETE)
-    public ResponseEntity deleteUser(@PathVariable Long userId) {
+    public ResponseEntity deleteUser(@PathVariable final Long userId) {
         if (getCredentialsFacade().existById(userId)) {
             getCredentialsFacade().remove(userId);
-            return ResponseEntity.status(200).body(getCredentialsFacade().findOne(userId));
+            return new ResponseEntity(HttpStatus.valueOf(200));
         }
-        return ResponseEntity.status(404).body(null);
+        return new ResponseEntity(HttpStatus.valueOf(404));
     }
 
 
