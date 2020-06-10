@@ -68,4 +68,16 @@ public class DefaultCredentialsFacade implements CredentialsFacade {
         return getConverterCredentialsEntityIntoData().
                 convert(getCredentialsService().save(entityCredentials));
     }
+
+    @Override
+    public Boolean existById(Long id) {
+        return getCredentialsService().existById(id);
+    }
+
+    @Override
+    public Boolean existByUsername(String username) {
+        return getCredentialsService().existByUsername(username);
+    }
+
+
 }
