@@ -21,4 +21,6 @@ public interface CredentialsService {
 
     boolean existById(Long id);
 
+    Boolean existByUsername(String username);
+
 }

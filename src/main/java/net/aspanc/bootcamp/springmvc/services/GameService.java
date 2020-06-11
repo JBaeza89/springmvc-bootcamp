@@ -23,6 +23,4 @@ public interface GameService {
 
     boolean existById(Long id);
 
-
-
 }

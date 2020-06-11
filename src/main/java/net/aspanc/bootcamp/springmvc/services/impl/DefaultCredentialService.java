@@ -55,4 +55,9 @@ public class DefaultCredentialService implements CredentialsService {
     public boolean existById(@NonNull final Long id) {
         return getCredentialsDao().existsById(id);
     }
+
+    @Override
+    public Boolean existByUsername(String username) {
+        return getCredentialsDao().existsByUsername(username);
+    }
 }

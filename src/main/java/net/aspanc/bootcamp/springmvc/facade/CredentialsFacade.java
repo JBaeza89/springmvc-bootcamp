@@ -11,4 +11,6 @@ public interface CredentialsFacade {
     List<CredentialsData> findByQuery(String filter);
     void remove(Long id);
     CredentialsData save(CredentialsData inputCredentials);
+    Boolean existById(Long id);
+    Boolean existByUsername(String username);
 }

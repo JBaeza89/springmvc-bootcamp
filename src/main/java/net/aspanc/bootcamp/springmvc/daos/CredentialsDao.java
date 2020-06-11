@@ -8,4 +8,6 @@ import java.util.List;
 public interface CredentialsDao extends JpaRepository<Credentials, Long> {
 
     List<Credentials> findByUsernameContaining(final String filter);
+
+    Boolean existsByUsername(String username);
 }
