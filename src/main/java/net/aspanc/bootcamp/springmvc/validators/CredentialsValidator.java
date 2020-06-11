@@ -27,7 +27,7 @@ public class CredentialsValidator implements Validator {
     public void validate(Object target, Errors errors) {
         CredentialsData credentials = (CredentialsData) target;
         if (getCredentialsFacade().existByUsername(credentials.getUsername())) {
-            errors.rejectValue("username", "ALREADY_EXIST", "mal");
+            errors.rejectValue("username", "ALREADY_EXIST");
         }
     }
 }
