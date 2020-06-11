@@ -34,14 +34,14 @@ public class UserController {
     }
 
     @RequestMapping(value = "/admin/rest/users", method = RequestMethod.GET)
-    public List<CredentialsData> getUsers(@Nullable @RequestParam(value = "q") final String query) {
+    public List<CredentialsData> getUsers( @RequestParam(value = "q", required = false) final String query) {
         if (query != null) {
             return credentialsFacade.findByQuery(query);
         }
         return credentialsFacade.findAll();
     }
 
-    private ResponseEntity checkValidationAndSaveUser(final CredentialsData credentials,
+    private ResponseEntity<List<String>> checkValidationAndSaveUser(final CredentialsData credentials,
                                                       final BindingResult bindingResult) {
         try {
             if (bindingResult.hasErrors()) {
@@ -52,11 +52,11 @@ public class UserController {
                                 .collect(Collectors.toList()));
             }
             if (credentialsFacade.existById(credentialsFacade.save(credentials).getId())) {
-                return new ResponseEntity(HttpStatus.valueOf(201));
+                return new ResponseEntity(HttpStatus.CREATED);
             }
-            return new ResponseEntity(HttpStatus.valueOf(500));
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         } catch (Exception ex) {
-            return new ResponseEntity(HttpStatus.valueOf(500));
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -72,7 +72,7 @@ public class UserController {
         if (getCredentialsFacade().existById(userId)) {
             return ResponseEntity.ok().body(getCredentialsFacade().findOne(userId));
         }
-        return new ResponseEntity(HttpStatus.valueOf(404));
+        return new ResponseEntity(HttpStatus.NOT_FOUND);
     }
 
     @RequestMapping(value = "/admin/rest/user/{userId}", method = RequestMethod.PUT)
@@ -84,16 +84,16 @@ public class UserController {
         if (getCredentialsFacade().existById(userId)) {
             return checkValidationAndSaveUser(credentials, bindingResult);
         }
-        return new ResponseEntity(HttpStatus.valueOf(404));
+        return new ResponseEntity(HttpStatus.NOT_FOUND);
     }
 
     @RequestMapping(value = "/admin/rest/user/{userId}", method = RequestMethod.DELETE)
     public ResponseEntity deleteUser(@PathVariable final Long userId) {
         if (getCredentialsFacade().existById(userId)) {
             getCredentialsFacade().remove(userId);
-            return new ResponseEntity(HttpStatus.valueOf(200));
+            return new ResponseEntity(HttpStatus.OK);
         }
-        return new ResponseEntity(HttpStatus.valueOf(404));
+        return new ResponseEntity(HttpStatus.NOT_FOUND);
     }
 
 
