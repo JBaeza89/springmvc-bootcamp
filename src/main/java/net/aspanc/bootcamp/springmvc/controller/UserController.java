@@ -28,11 +28,6 @@ public class UserController {
         this.credentialsValidator = credentialsValidator;
     }
 
-    @InitBinder
-    protected void initBinder(WebDataBinder binder) {
-        binder.setValidator(getCredentialsValidator());
-    }
-
     @RequestMapping(value = "/admin/rest/users", method = RequestMethod.GET)
     public List<CredentialsData> getUsers( @RequestParam(value = "q", required = false) final String query) {
         if (query != null) {
@@ -44,6 +39,7 @@ public class UserController {
     private ResponseEntity<List<String>> checkValidationAndSaveUser(final CredentialsData credentials,
                                                       final BindingResult bindingResult) {
         try {
+            getCredentialsValidator().validate(credentials, bindingResult);
             if (bindingResult.hasErrors()) {
                 return ResponseEntity.status(400).body(
                         bindingResult.getFieldErrors()
