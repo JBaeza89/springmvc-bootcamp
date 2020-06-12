@@ -16,6 +16,7 @@
 <div class="container">
     <form class="form-signin" method="post" action="${loginURL}">
         <h2 class="form-signin-heading"><spring:message code="login.header"/></h2>
+        <tag:feedbackmessage message="${messageError}"/>
         <p>
             <label for="username" class="sr-only"><spring:message code="login.username"/></label>
             <input type="text" id="username" name="username" class="form-control" placeholder="<spring:message code="login.username"/>" required autofocus>
