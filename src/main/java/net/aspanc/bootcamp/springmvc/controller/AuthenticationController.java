@@ -13,7 +13,7 @@ public class AuthenticationController {
         return "login";
     }
 
-    @RequestMapping(value = "/login?error", method = RequestMethod.GET)
+    @RequestMapping(value = "/login", params = {"error"}, method = RequestMethod.GET)
     public String showLoginPageWithErrors(Model model) {
         model.addAttribute("messageError", "controller.messagerror.wrongcredentials");
         return "login";

@@ -16,7 +16,7 @@
 <div class="container">
     <form class="form-signin" method="post" action="${loginURL}">
         <h2 class="form-signin-heading"><spring:message code="login.header"/></h2>
-        <tag:feedbackmessage message="${messageError}"/>
+        <tag:feedbackmessage message="${messageError}" styles="errorMessage"/>
         <p>
             <label for="username" class="sr-only"><spring:message code="login.username"/></label>
             <input type="text" id="username" name="username" class="form-control" placeholder="<spring:message code="login.username"/>" required autofocus>
@@ -25,7 +25,7 @@
             <label for="password" class="sr-only"><spring:message code="login.password"/></label>
             <input type="password" id="password" name="password" class="form-control" placeholder="<spring:message code="login.password"/>" required>
         </p>
-        <input name="_csrf" type="hidden" value="36508f92-7aa3-4f3b-b228-b6c0fbd3beaf" />
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         <button class="btn btn-lg btn-primary btn-block" type="submit"><spring:message code="login.submit"/></button>
     </form>
 </div>
