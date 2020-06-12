@@ -14,6 +14,6 @@ public class AppWebSecurity extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
             .antMatchers("/", "/js", "/css", "/game").permitAll()
             .antMatchers("/game/new", "/game/delete/**", "/game/edit/**", "/admin/rest/**").hasAnyRole("REGISTERED")
-            .and().formLogin();
+            .and().formLogin().loginPage("/login");
     }
 }
