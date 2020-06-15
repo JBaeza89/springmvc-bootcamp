@@ -7,7 +7,9 @@ import java.util.List;
 
 public interface CredentialsDao extends JpaRepository<Credentials, Long> {
 
-    List<Credentials> findByUsernameContaining(final String filter);
+    List<Credentials> findByUsernameContaining(String filter);
 
     Boolean existsByUsername(String username);
+
+    Credentials findByUsername(String username);
 }

@@ -6,14 +6,21 @@ import lombok.NonNull;
 import net.aspanc.bootcamp.springmvc.daos.CredentialsDao;
 import net.aspanc.bootcamp.springmvc.entities.Credentials;
 import net.aspanc.bootcamp.springmvc.services.CredentialsService;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Getter(AccessLevel.PROTECTED)
 @Service("defaultCredentialsService")
-public class DefaultCredentialService implements CredentialsService {
+public class DefaultCredentialService implements CredentialsService, UserDetailsService {
 
     private final CredentialsDao credentialsDao;
 
@@ -57,7 +64,16 @@ public class DefaultCredentialService implements CredentialsService {
     }
 
     @Override
-    public Boolean existByUsername(String username) {
+    public Boolean existByUsername(@NonNull final String username) {
         return getCredentialsDao().existsByUsername(username);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(@NonNull final String username) throws UsernameNotFoundException {
+        Credentials credentials = credentialsDao.findByUsername(username);
+        List<GrantedAuthority> roles = new ArrayList<>();
+        roles.add(new SimpleGrantedAuthority(credentials.getRole()));
+        UserDetails userDetails = new User(credentials.getUsername(), credentials.getPassword(), roles);
+        return userDetails;
     }
 }
