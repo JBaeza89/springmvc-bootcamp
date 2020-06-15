@@ -14,7 +14,7 @@ public class AppWebSecurity extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
             .antMatchers("/", "/js", "/css", "/game").permitAll()
-            .antMatchers("/game/new", "/game/delete/**", "/game/edit/**", "/admin/rest/**").hasAnyRole("REGISTERED")
+            .antMatchers("/game/new", "/game/delete/**", "/game/edit/**").hasAnyRole("REGISTERED")
             .and().formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/login")
@@ -25,6 +25,11 @@ public class AppWebSecurity extends WebSecurityConfigurerAdapter {
                 .deleteCookies("JSESSIONID")
                 .invalidateHttpSession(true)
                 .logoutSuccessUrl("/");
+
+        http.authorizeRequests()
+            .antMatchers("/admin/rest/**").hasAnyRole("REGISTERED")
+            .and().httpBasic();
+
 
     }
 }
