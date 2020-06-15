@@ -12,6 +12,7 @@
     <script src="/js/index.js"></script>
 </head>
 <body>
+<tag:loginlogout/>
 <h1><spring:message code="index.title" /></h1>
 <tag:feedbackmessage message="${deleteMessage}" styles="bg-yellow"/>
 <br>

@@ -11,7 +11,7 @@
     <script src="/js/game.js"></script>
 </head>
 <body>
-
+<tag:loginlogout/>
 <tag:feedbackmessage message="${saveMessage}" styles="bg-yellow"/>
     <p>Id: ${game.id}</p>
     <p><spring:message code="all.title"/> ${game.title}</p>
