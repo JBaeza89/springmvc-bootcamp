@@ -6,19 +6,26 @@ import lombok.NonNull;
 import net.aspanc.bootcamp.springmvc.daos.CredentialsDao;
 import net.aspanc.bootcamp.springmvc.entities.Credentials;
 import net.aspanc.bootcamp.springmvc.services.CredentialsService;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Getter(AccessLevel.PROTECTED)
 @Service("defaultCredentialsService")
-public class DefaultCredentialService implements CredentialsService {
+public class DefaultCredentialService implements CredentialsService, UserDetailsService {
 
     private final CredentialsDao credentialsDao;
+    private final Converter<Credentials, UserDetails> converterCredentialsIntoUserDetails;
 
-    public DefaultCredentialService(CredentialsDao credentialsDao) {
+    public DefaultCredentialService(CredentialsDao credentialsDao, Converter<Credentials, UserDetails> converterCredentialsIntoUserDetails) {
         this.credentialsDao = credentialsDao;
+        this.converterCredentialsIntoUserDetails = converterCredentialsIntoUserDetails;
     }
 
     @Override
@@ -57,7 +64,12 @@ public class DefaultCredentialService implements CredentialsService {
     }
 
     @Override
-    public Boolean existByUsername(String username) {
+    public Boolean existByUsername(@NonNull final String username) {
         return getCredentialsDao().existsByUsername(username);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(@NonNull final String username) throws UsernameNotFoundException {
+        return getConverterCredentialsIntoUserDetails().convert(getCredentialsDao().findByUsername(username));
     }
 }
