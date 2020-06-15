@@ -6,6 +6,7 @@ import lombok.NonNull;
 import net.aspanc.bootcamp.springmvc.daos.CredentialsDao;
 import net.aspanc.bootcamp.springmvc.entities.Credentials;
 import net.aspanc.bootcamp.springmvc.services.CredentialsService;
+import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -23,9 +24,11 @@ import java.util.Optional;
 public class DefaultCredentialService implements CredentialsService, UserDetailsService {
 
     private final CredentialsDao credentialsDao;
+    private final Converter<Credentials, UserDetails> converterCredentialsIntoUserDetails;
 
-    public DefaultCredentialService(CredentialsDao credentialsDao) {
+    public DefaultCredentialService(CredentialsDao credentialsDao, Converter<Credentials, UserDetails> converterCredentialsIntoUserDetails) {
         this.credentialsDao = credentialsDao;
+        this.converterCredentialsIntoUserDetails = converterCredentialsIntoUserDetails;
     }
 
     @Override
@@ -70,10 +73,6 @@ public class DefaultCredentialService implements CredentialsService, UserDetails
 
     @Override
     public UserDetails loadUserByUsername(@NonNull final String username) throws UsernameNotFoundException {
-        Credentials credentials = credentialsDao.findByUsername(username);
-        List<GrantedAuthority> roles = new ArrayList<>();
-        roles.add(new SimpleGrantedAuthority(credentials.getRole()));
-        UserDetails userDetails = new User(credentials.getUsername(), credentials.getPassword(), roles);
-        return userDetails;
+        return getConverterCredentialsIntoUserDetails().convert(getCredentialsDao().findByUsername(username));
     }
 }

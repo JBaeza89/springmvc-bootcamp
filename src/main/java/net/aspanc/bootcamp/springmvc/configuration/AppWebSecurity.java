@@ -1,6 +1,5 @@
 package net.aspanc.bootcamp.springmvc.configuration;
 
-import lombok.experimental.Accessors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
@@ -16,7 +15,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 public class AppWebSecurity extends WebSecurityConfigurerAdapter {
 
-    @Autowired()
+    @Autowired
     @Qualifier("defaultCredentialsService")
     private UserDetailsService userDetailsService;
 
