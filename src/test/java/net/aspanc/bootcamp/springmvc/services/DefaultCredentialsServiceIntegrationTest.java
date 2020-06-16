@@ -10,6 +10,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
@@ -21,6 +22,9 @@ public class DefaultCredentialsServiceIntegrationTest {
     @Autowired
     @Qualifier("defaultCredentialsService")
     private CredentialsService credentialsService;
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     private final Credentials USER1 = new Credentials()
             .setUsername(CredentialsConstants.USERNAME1)
