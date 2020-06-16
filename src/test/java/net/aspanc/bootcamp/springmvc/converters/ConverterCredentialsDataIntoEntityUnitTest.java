@@ -7,11 +7,12 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class ConverterCredentialsDataIntoEntityUnitTest {
 
     private final CredentialsData data = new CredentialsData();
-    private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+    private final PasswordEncoder encoder = new BCryptPasswordEncoder();
     private final ConverterCredentialsDataIntoEntity converter = new ConverterCredentialsDataIntoEntity(encoder);
 
     @Before

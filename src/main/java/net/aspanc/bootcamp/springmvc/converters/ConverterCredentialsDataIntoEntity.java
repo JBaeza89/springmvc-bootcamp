@@ -4,14 +4,15 @@ import net.aspanc.bootcamp.springmvc.data.CredentialsData;
 import net.aspanc.bootcamp.springmvc.entities.Credentials;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component("converterCredentialsDataIntoEntity")
 public class ConverterCredentialsDataIntoEntity implements Converter<CredentialsData, Credentials> {
 
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private PasswordEncoder bCryptPasswordEncoder;
 
-    public ConverterCredentialsDataIntoEntity(BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public ConverterCredentialsDataIntoEntity(PasswordEncoder bCryptPasswordEncoder) {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 

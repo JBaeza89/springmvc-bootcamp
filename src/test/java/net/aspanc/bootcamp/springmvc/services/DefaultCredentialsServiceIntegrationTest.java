@@ -23,9 +23,6 @@ public class DefaultCredentialsServiceIntegrationTest {
     @Qualifier("defaultCredentialsService")
     private CredentialsService credentialsService;
 
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
-
     private final Credentials USER1 = new Credentials()
             .setUsername(CredentialsConstants.USERNAME1)
             .setPassword(CredentialsConstants.PASSWORD1)
