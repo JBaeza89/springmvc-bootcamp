@@ -78,7 +78,7 @@ public class DefaultCredentialsServiceIntegrationTest {
 
     @Test
     public void retrieveAll() {
-        Assert.assertEquals("List size doesn't match",2, credentialsService.findAll().size());
+        Assert.assertEquals("List size doesn't match",3, credentialsService.findAll().size());
     }
 
     @Test
