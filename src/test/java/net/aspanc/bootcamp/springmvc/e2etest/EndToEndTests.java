@@ -15,7 +15,7 @@ import static com.codeborne.selenide.Selenide.*;
 
 @Category(End2EndTest.class)
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = SpringmvcApplication.class, webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class EndToEndTests {
 
 
