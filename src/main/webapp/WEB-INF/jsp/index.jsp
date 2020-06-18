@@ -11,48 +11,61 @@
     <tag:dependencies/>
     <script src="/js/index.js"></script>
 </head>
-<body>
-<tag:loginlogout/>
+<body <tag:classbody/>>
 <h1><spring:message code="index.title" /></h1>
-<tag:feedbackmessage message="${deleteMessage}" styles="bg-yellow"/>
-<br>
-<sec:authorize access="hasRole('REGISTERED')">
-<c:url value="/game/new" var="newGameURL"/>
-<a href="${newGameURL}"><spring:message code="index.newgame" /></a>
-</sec:authorize>
-<c:url value="/game" var="queryURL"/>
-<form action="${queryURL}" method="get">
-<input type="text" name="q" value="${q}" placeholder="<spring:message code="index.placeholder" />">
-<button type="submit"><spring:message code="index.button"/></button>
-</form>
-<table id="tabla">
-    <tr>
-        <th>ID</th>
-        <th><spring:message code="index.gametitle" /></th>
-    </tr>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <tag:loginlogout/>
+            </li>
+            <sec:authorize access="isAuthenticated()">
+            <li class="nav-item">
+                <c:url value="/game/new" var="newGameURL"/>
+                <a class="nav-link" href="${newGameURL}"><spring:message code="index.newgame" /></a>
+            </li>
+            </sec:authorize>
+        </ul>
+        <c:url value="/game" var="queryURL"/>
+        <form class="form-inline my-2 my-lg-0" action="${queryURL}" method="get">
+            <input class="form-control mr-sm-2" type="search" name="q" value="${q}" placeholder="<spring:message code="index.placeholder"/>" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><spring:message code="index.button"/></button>
+        </form>
+    </div>
+</nav>
+<tag:feedbackmessage message="${deleteMessage}"/>
+<div class="container bg-light text-dark">
+    <div class="row bg-primary text-light">
+        <div class="col-sm-2">ID</div>
+        <div class="col-sm-5"><spring:message code="index.gametitle"/></div>
+    </div>
     <c:forEach var = "game"
                items = "${gameList}">
         <c:url value="/game/${game.id}" var="gameURL"/>
         <c:url value="/game/delete/${game.id}" var="deleteURL"/>
         <c:url value="/game/edit/${game.id}" var="editURL"/>
-        <tr>
-            <td>
-                <sec:authorize access="hasRole('REGISTERED')"><a href="${gameURL}"></sec:authorize>
+        <div class="row">
+            <div class="col-sm-2">
+                <sec:authorize access="isAuthenticated()"><a href="${gameURL}"></sec:authorize>
                     ${game.id}
-                <sec:authorize access="hasRole('REGISTERED')"></a></sec:authorize>
-            </td>
-            <td>
-                <sec:authorize access="hasRole('REGISTERED')"><a href="${gameURL}"></sec:authorize>
+                <sec:authorize access="isAuthenticated()"></a></sec:authorize>
+            </div>
+            <div class="col-sm-5">
+                <sec:authorize access="isAuthenticated()"><a href="${gameURL}"></sec:authorize>
                     ${game.title}
-                <sec:authorize access="hasRole('REGISTERED')"></a></sec:authorize>
-            </td>
-            <sec:authorize access="hasRole('REGISTERED')">
-            <spring:message code="js.delete.confirm" arguments="${game.title}" var="deleteConfirm"/>
-            <td><button onclick="deleteById('${deleteURL}', '${deleteConfirm}')"><spring:message code="index.delete"/></button></td>
-            <td><a href="${editURL}"><spring:message code="index.edit" /></a></td>
+                <sec:authorize access="isAuthenticated()"></a></sec:authorize>
+            </div>
+            <sec:authorize access="isAuthenticated()">
+                <spring:message code="js.delete.confirm" arguments="${game.title}" var="deleteConfirm"/>
+                <div class="col-sm-1">
+                    <button class="btn btn-danger" onclick="deleteById('${deleteURL}', '${deleteConfirm}')"><spring:message code="index.delete"/></button></td>
+                </div>
+                <div class="col-sm-1">
+                    <a class="btn btn-info" role="button" href="${editURL}"><spring:message code="index.edit"/></a>
+                </div>
             </sec:authorize>
-        </tr>
+        </div>
     </c:forEach>
-</table>
+</div>
 </body>
 </html>

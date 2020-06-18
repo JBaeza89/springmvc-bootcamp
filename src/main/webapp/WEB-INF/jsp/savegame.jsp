@@ -11,18 +11,25 @@
     <tag:dependencies/>
     <script src="/js/index.js"></script>
 </head>
-<body>
-<tag:loginlogout/>
+<body <tag:classbody/>>
+<tag:loginandreturn/>
 <h1><spring:message code='${title}'/></h1>
 <c:url value="${not empty game.id ? '/game/edit/'.concat(game.id) : '/game/new'}" var="formURL"/>
 <form:form action="${formURL}" method="post" modelAttribute="game">
-    <spring:message code="all.title"/>  <form:input path="title"/>
-    <form:errors path="title" class="errorMessage"/><br>
-    <spring:message code="all.steamid"/>  <form:input path="steamId"/><br>
-    <spring:message code="all.description"/>  <form:textarea path="description"/><br>
-    <button type="submit"><spring:message code="savegame.send"/> </button>
+    <div class="form-group">
+        <label for="title"><spring:message code="all.title"/></label>
+        <form:input path="title" cssClass="form-control" id="title"/>
+        <form:errors path="title" class="errorMessage"/>
+    </div>
+    <div class="form-group">
+        <label for="steam"><spring:message code="all.steamid"/></label>
+        <form:input path="steamId" cssClass="form-control" id="steam"/>
+    </div>
+    <div class="form-group">
+        <label for="description"><spring:message code="all.description"/></label>
+        <form:textarea path="description" class="form-control" rows="5" id="description"/>
+    </div>
+    <button class="btn btn-primary" type="submit"><spring:message code="savegame.send"/> </button>
 </form:form>
-<c:url value="/" var="indexURL"/>
-<a href="${indexURL}"><spring:message code="all.return"/> </a>
 </body>
 </html>

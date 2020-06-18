@@ -9,10 +9,8 @@
     <title><spring:message code="error.title"/></title>
     <tag:dependencies/>
 </head>
-<body>
-    <c:url value="/" var="indexURL"/>
-    <a href="${indexURL}"><spring:message code="all.return"/></a>
-    <br><br>
+<body <tag:classbody/>>
+<tag:loginandreturn/>
     <h1><spring:message code="error.standardmessage"/></h1>
     <h3><tag:feedbackmessage message="${messageError}"/></h3>
 </body>

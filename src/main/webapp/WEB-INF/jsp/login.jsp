@@ -11,8 +11,17 @@
     <tag:dependencies/>
     <script src="/js/index.js"></script>
 </head>
-<body>
-<c:url value="/login" var="loginURL"/>
+<body <tag:classbody/>>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <c:url value="/" var="indexURL"/>
+                <a class="nav-link" href="${indexURL}"><spring:message code="all.return"/></a>
+            </li>
+        </ul>
+    </div>
+</nav>
 <div class="container">
     <form class="form-signin" method="post" action="${loginURL}">
         <h2 class="form-signin-heading"><spring:message code="login.header"/></h2>

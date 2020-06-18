@@ -5,5 +5,8 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <c:if test="${not empty message}">
-    <span class="${styles}"><spring:message code="${message}"/> </span>
+    <div class="alert alert-primary" role="alert">
+        <span class="${styles}"><spring:message code="${message}"/></span>
+    </div>
+
 </c:if>
