@@ -11,8 +11,9 @@
     <tag:dependencies/>
     <script src="/js/index.js"></script>
 </head>
-<body <tag:classbody/>>
-<tag:loginandreturn/>
+<tag:classbody/>
+<body class="${classBody}">
+<tag:navigationbar/>
 <h1><spring:message code='${title}'/></h1>
 <c:url value="${not empty game.id ? '/game/edit/'.concat(game.id) : '/game/new'}" var="formURL"/>
 <form:form action="${formURL}" method="post" modelAttribute="game">

@@ -11,7 +11,8 @@
     <tag:dependencies/>
     <script src="/js/index.js"></script>
 </head>
-<body <tag:classbody/>>
+<tag:classbody/>
+<body class="${classBody}">
 <h1><spring:message code="index.title" /></h1>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="collapse navbar-collapse" id="navbarSupportedContent">

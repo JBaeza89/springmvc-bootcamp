@@ -10,8 +10,9 @@
     <tag:dependencies/>
     <script src="/js/game.js"></script>
 </head>
-<body <tag:classbody/>>
-<tag:loginandreturn/>
+<tag:classbody/>
+<body class="${classBody}">
+<tag:navigationbar/>
 <tag:feedbackmessage message="${saveMessage}"/>
     <p>Id: ${game.id}</p>
     <p><spring:message code="all.title"/> ${game.title}</p>

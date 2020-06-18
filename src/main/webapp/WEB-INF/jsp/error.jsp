@@ -9,8 +9,9 @@
     <title><spring:message code="error.title"/></title>
     <tag:dependencies/>
 </head>
-<body <tag:classbody/>>
-<tag:loginandreturn/>
+<tag:classbody/>
+<body class="${classBody}">
+<tag:navigationbar/>
     <h1><spring:message code="error.standardmessage"/></h1>
     <h3><tag:feedbackmessage message="${messageError}"/></h3>
 </body>
