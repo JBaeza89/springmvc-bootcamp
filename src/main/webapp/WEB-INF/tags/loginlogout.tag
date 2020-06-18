@@ -5,9 +5,9 @@
 
 <sec:authorize access="isAuthenticated()">
     <c:url value="/logout" var="logoutURL"/>
-    <a id="logout" href="${logoutURL}"><spring:message code="session.logout"/></a>
+    <a class="nav-link" id="logout" href="${logoutURL}"><spring:message code="session.logout"/></a>
 </sec:authorize>
 <sec:authorize access="!isAuthenticated()">
     <c:url value="/login" var="loginURL"/>
-    <a id="login" href="${loginURL}"><spring:message code="session.login"/></a>
+    <a class="nav-link" id="login" href="${loginURL}"><spring:message code="session.login"/></a>
 </sec:authorize>

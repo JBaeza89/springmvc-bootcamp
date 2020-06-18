@@ -10,17 +10,17 @@
     <tag:dependencies/>
     <script src="/js/game.js"></script>
 </head>
-<body>
-<tag:loginlogout/>
-<tag:feedbackmessage message="${saveMessage}" styles="bg-yellow"/>
+<tag:classvars/>
+<body class="${classBody}">
+<tag:navigationbar/>
+<tag:feedbackmessage message="${saveMessage}"/>
     <p>Id: ${game.id}</p>
     <p><spring:message code="all.title"/> ${game.title}</p>
     <div id="screenshot"></div>
     <p><spring:message code="all.description"/>${game.description}</p>
     <p><spring:message code="all.steamid"/>${game.steamId}</p>
     <div id="news"></div>
-    <c:url value="/" var="indexURL"/>
-    <a href="${indexURL}"><spring:message code="all.return"/></a>
+
     <c:url value="/game/steam/details/${game.steamId}" var="urlDetails"/>
     <input type="hidden" id="urlDetails" data="${urlDetails}">
     <c:url value="/game/steam/news/${game.steamId}" var="urlNews"/>
