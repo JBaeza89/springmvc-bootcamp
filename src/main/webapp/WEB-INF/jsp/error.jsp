@@ -9,7 +9,7 @@
     <title><spring:message code="error.title"/></title>
     <tag:dependencies/>
 </head>
-<tag:classbody/>
+<tag:classvars/>
 <body class="${classBody}">
 <tag:navigationbar/>
     <h1><spring:message code="error.standardmessage"/></h1>

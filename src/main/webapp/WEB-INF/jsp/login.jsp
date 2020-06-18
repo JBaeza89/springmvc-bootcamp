@@ -11,7 +11,7 @@
     <tag:dependencies/>
     <script src="/js/index.js"></script>
 </head>
-<tag:classbody/>
+<tag:classvars/>
 <body class="${classBody}">
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="collapse navbar-collapse" id="navbarSupportedContent">

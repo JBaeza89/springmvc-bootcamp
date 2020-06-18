@@ -10,7 +10,7 @@
     <tag:dependencies/>
     <script src="/js/game.js"></script>
 </head>
-<tag:classbody/>
+<tag:classvars/>
 <body class="${classBody}">
 <tag:navigationbar/>
 <tag:feedbackmessage message="${saveMessage}"/>

@@ -11,7 +11,7 @@
     <tag:dependencies/>
     <script src="/js/index.js"></script>
 </head>
-<tag:classbody/>
+<tag:classvars/>
 <body class="${classBody}">
 <tag:navigationbar/>
 <h1><spring:message code='${title}'/></h1>
